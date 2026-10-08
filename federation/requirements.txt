@@ -1,0 +1,2 @@
+pyfate==2.2.0
+fate_client==2.2.0

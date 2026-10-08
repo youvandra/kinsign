@@ -1,0 +1,744 @@
+{
+  "note": "One million customers, one year, yuan. Parameters in bench/src/population/params.ts; most are assumptions. Coached-victim model: resist = 0 unless swept.",
+  "operatorSetting": "base",
+  "population": {
+    "customers": 1000000,
+    "legitTransfers": 40000000,
+    "scamAttempts": 2000,
+    "legitSample": 400000,
+    "scamSample": 20000
+  },
+  "main": {
+    "B0 no protection": {
+      "VRR": 1,
+      "LR": 1,
+      "scamValueAttempted": 33101722.023370314,
+      "preventedLoss": 0,
+      "FHR": 0,
+      "FHR_onCall": 0,
+      "valueHeldInError": 0,
+      "heldLegitPerYear": 0,
+      "waitMedianMin": 0,
+      "waitP90Min": 0,
+      "frictionCost": 0,
+      "netBenefit": 0,
+      "liabilityAvoided": 0,
+      "breakEvenFrictionPerHold": null,
+      "lossRateByTypology": {
+        "kin": 1,
+        "authority": 1,
+        "refund": 1,
+        "investment": 1,
+        "takeover": 1
+      }
+    },
+    "B1 in-call warning": {
+      "VRR": 1,
+      "LR": 1,
+      "scamValueAttempted": 33101722.023370314,
+      "preventedLoss": 0,
+      "FHR": 0,
+      "FHR_onCall": 0,
+      "valueHeldInError": 0,
+      "heldLegitPerYear": 0,
+      "waitMedianMin": 0,
+      "waitP90Min": 0,
+      "frictionCost": 794000,
+      "netBenefit": -794000,
+      "liabilityAvoided": 0,
+      "breakEvenFrictionPerHold": null,
+      "lossRateByTypology": {
+        "kin": 1,
+        "authority": 1,
+        "refund": 1,
+        "investment": 1,
+        "takeover": 1
+      }
+    },
+    "B2 warning + 30 s pause": {
+      "VRR": 1,
+      "LR": 1,
+      "scamValueAttempted": 33101722.023370314,
+      "preventedLoss": 0,
+      "FHR": 0,
+      "FHR_onCall": 0,
+      "valueHeldInError": 0,
+      "heldLegitPerYear": 0,
+      "waitMedianMin": 0,
+      "waitP90Min": 0,
+      "frictionCost": 3100,
+      "netBenefit": -3100,
+      "liabilityAvoided": 0,
+      "breakEvenFrictionPerHold": null,
+      "lossRateByTypology": {
+        "kin": 1,
+        "authority": 1,
+        "refund": 1,
+        "investment": 1,
+        "takeover": 1
+      }
+    },
+    "B3 guardian notification": {
+      "VRR": 1,
+      "LR": 1,
+      "scamValueAttempted": 33101722.023370314,
+      "preventedLoss": 0,
+      "FHR": 0,
+      "FHR_onCall": 0,
+      "valueHeldInError": 0,
+      "heldLegitPerYear": 0,
+      "waitMedianMin": 0,
+      "waitP90Min": 0,
+      "frictionCost": 0,
+      "netBenefit": 0,
+      "liabilityAvoided": 0,
+      "breakEvenFrictionPerHold": null,
+      "lossRateByTypology": {
+        "kin": 1,
+        "authority": 1,
+        "refund": 1,
+        "investment": 1,
+        "takeover": 1
+      }
+    },
+    "B4 money lock": {
+      "VRR": 0.9015000000000539,
+      "LR": 0.906053074481193,
+      "scamValueAttempted": 33101722.023370314,
+      "preventedLoss": 3109805.0134738237,
+      "FHR": 0.0071475,
+      "FHR_onCall": 0.00831234256926952,
+      "valueHeldInError": 0.03935793151311805,
+      "heldLegitPerYear": 285900,
+      "waitMedianMin": 1440,
+      "waitP90Min": 1440,
+      "frictionCost": 28590000,
+      "netBenefit": -25480194.986526176,
+      "liabilityAvoided": 1554902.5067369118,
+      "breakEvenFrictionPerHold": 10.877247336389729,
+      "lossRateByTypology": {
+        "kin": 0.9180041594330947,
+        "authority": 0.9009758955821542,
+        "refund": 0.8984078354722204,
+        "investment": 0.9282149373437043,
+        "takeover": 0.8859363367293807
+      }
+    },
+    "B5 score + self-confirmation": {
+      "VRR": 1,
+      "LR": 1,
+      "scamValueAttempted": 33101722.023370314,
+      "preventedLoss": 0,
+      "FHR": 0,
+      "FHR_onCall": 0,
+      "valueHeldInError": 0,
+      "heldLegitPerYear": 0,
+      "waitMedianMin": 0,
+      "waitP90Min": 0,
+      "frictionCost": 126600,
+      "netBenefit": -126600,
+      "liabilityAvoided": 0,
+      "breakEvenFrictionPerHold": null,
+      "lossRateByTypology": {
+        "kin": 1,
+        "authority": 1,
+        "refund": 1,
+        "investment": 1,
+        "takeover": 1
+      }
+    },
+    "K Kinsign core": {
+      "VRR": 0.09177500000002915,
+      "LR": 0.08694478876883743,
+      "scamValueAttempted": 33101722.023370314,
+      "preventedLoss": 30223699.794163607,
+      "FHR": 0.01106,
+      "FHR_onCall": 0.2785894206549118,
+      "valueHeldInError": 0.024052131125101132,
+      "heldLegitPerYear": 442400,
+      "waitMedianMin": 9.408204550746625,
+      "waitP90Min": 182.2290342903037,
+      "frictionCost": 11574921.919648152,
+      "netBenefit": 18648777.874515455,
+      "liabilityAvoided": 15111849.897081804,
+      "breakEvenFrictionPerHold": 68.31758542984541,
+      "lossRateByTypology": {
+        "kin": 0.06385556072561806,
+        "authority": 0.042249779978156224,
+        "refund": 0.03387203636362579,
+        "investment": 0.3175901841826829,
+        "takeover": 0.0168549542207773
+      }
+    }
+  },
+  "resistSweep": [
+    {
+      "resist": 0,
+      "B0 no protection": 1,
+      "B1 in-call warning": 1,
+      "B2 warning + 30 s pause": 1,
+      "B3 guardian notification": 1,
+      "B4 money lock": 0.906053074481193,
+      "B5 score + self-confirmation": 1,
+      "K Kinsign core": 0.08694478876883743
+    },
+    {
+      "resist": 0.2,
+      "B0 no protection": 1,
+      "B1 in-call warning": 0.8144266664790863,
+      "B2 warning + 30 s pause": 0.9594599400020001,
+      "B3 guardian notification": 1,
+      "B4 money lock": 0.906053074481193,
+      "B5 score + self-confirmation": 0.810552252154444,
+      "K Kinsign core": 0.08694478876883743
+    },
+    {
+      "resist": 0.4,
+      "B0 no protection": 1,
+      "B1 in-call warning": 0.6288533329581735,
+      "B2 warning + 30 s pause": 0.9189198800039968,
+      "B3 guardian notification": 1,
+      "B4 money lock": 0.906053074481193,
+      "B5 score + self-confirmation": 0.6211045043088887,
+      "K Kinsign core": 0.08694478876883743
+    }
+  ],
+  "kinsignSweep": [
+    {
+      "circleFooled": 0,
+      "costs": "low",
+      "LR": 0.08694478876883743,
+      "frictionCost": 3451351.9196482045,
+      "netBenefit": 26772347.874515403,
+      "breakEvenFrictionPerHold": 68.31758542984541
+    },
+    {
+      "circleFooled": 0,
+      "costs": "mid",
+      "LR": 0.08694478876883743,
+      "frictionCost": 11574921.919648152,
+      "netBenefit": 18648777.874515455,
+      "breakEvenFrictionPerHold": 68.31758542984541
+    },
+    {
+      "circleFooled": 0,
+      "costs": "high",
+      "LR": 0.08694478876883743,
+      "frictionCost": 30034061.91964827,
+      "netBenefit": 189637.874515336,
+      "breakEvenFrictionPerHold": 68.31758542984541
+    },
+    {
+      "circleFooled": 0.05,
+      "costs": "low",
+      "LR": 0.12678396440586204,
+      "frictionCost": 3451351.9196482045,
+      "netBenefit": 25453602.55693839,
+      "breakEvenFrictionPerHold": 65.33669637564782
+    },
+    {
+      "circleFooled": 0.05,
+      "costs": "mid",
+      "LR": 0.12678396440586204,
+      "frictionCost": 11574921.919648152,
+      "netBenefit": 17330032.556938443,
+      "breakEvenFrictionPerHold": 65.33669637564782
+    },
+    {
+      "circleFooled": 0.05,
+      "costs": "high",
+      "LR": 0.12678396440586204,
+      "frictionCost": 30034061.91964827,
+      "netBenefit": -1129107.4430616759,
+      "breakEvenFrictionPerHold": 65.33669637564782
+    },
+    {
+      "circleFooled": 0.1,
+      "costs": "low",
+      "LR": 0.1666231400428876,
+      "frictionCost": 3451351.9196482045,
+      "netBenefit": 24134857.239361342,
+      "breakEvenFrictionPerHold": 62.35580732145015
+    },
+    {
+      "circleFooled": 0.1,
+      "costs": "mid",
+      "LR": 0.1666231400428876,
+      "frictionCost": 11574921.919648152,
+      "netBenefit": 16011287.239361394,
+      "breakEvenFrictionPerHold": 62.35580732145015
+    },
+    {
+      "circleFooled": 0.1,
+      "costs": "high",
+      "LR": 0.1666231400428876,
+      "frictionCost": 30034061.91964827,
+      "netBenefit": -2447852.760638725,
+      "breakEvenFrictionPerHold": 62.35580732145015
+    },
+    {
+      "circleFooled": 0.2,
+      "costs": "low",
+      "LR": 0.2463014913169372,
+      "frictionCost": 3451351.9196482045,
+      "netBenefit": 21497366.604207296,
+      "breakEvenFrictionPerHold": 56.39402921305493
+    },
+    {
+      "circleFooled": 0.2,
+      "costs": "mid",
+      "LR": 0.2463014913169372,
+      "frictionCost": 11574921.919648152,
+      "netBenefit": 13373796.604207348,
+      "breakEvenFrictionPerHold": 56.39402921305493
+    },
+    {
+      "circleFooled": 0.2,
+      "costs": "high",
+      "LR": 0.2463014913169372,
+      "frictionCost": 30034061.91964827,
+      "netBenefit": -5085343.395792771,
+      "breakEvenFrictionPerHold": 56.39402921305493
+    }
+  ],
+  "lossFrictionCurve": [
+    {
+      "theta": 0,
+      "LR": 0.08694478876883743,
+      "FHR": 0.01106,
+      "frictionCost": 11574921.919648152,
+      "netBenefit": 18648777.874515455
+    },
+    {
+      "theta": 0.3,
+      "LR": 0.08694478876883743,
+      "FHR": 0.01106,
+      "frictionCost": 11574921.919648152,
+      "netBenefit": 18648777.874515455
+    },
+    {
+      "theta": 0.5,
+      "LR": 0.08829683806904837,
+      "FHR": 0.0060225,
+      "frictionCost": 6313798.86079171,
+      "netBenefit": 23865145.773274425
+    },
+    {
+      "theta": 0.6,
+      "LR": 0.09343794509583658,
+      "FHR": 0.0031475,
+      "frictionCost": 3283259.676979195,
+      "netBenefit": 26725505.4613938
+    },
+    {
+      "theta": 0.7,
+      "LR": 0.1069783364191364,
+      "FHR": 0.00158,
+      "frictionCost": 1644598.7357170908,
+      "netBenefit": 27915956.132984377
+    },
+    {
+      "theta": 0.8,
+      "LR": 0.14555996625671824,
+      "FHR": 0.0009075,
+      "frictionCost": 924628.7408115619,
+      "netBenefit": 27358807.741797704
+    },
+    {
+      "theta": 0.9,
+      "LR": 0.35401217527695805,
+      "FHR": 0.0000825,
+      "frictionCost": 86907.73872538863,
+      "netBenefit": 21296401.665738408
+    },
+    {
+      "theta": 0.95,
+      "LR": 0.7101352310092759,
+      "FHR": 0.000005,
+      "frictionCost": 6920.9215642395575,
+      "netBenefit": 9588102.08593516
+    }
+  ],
+  "federated": {
+    "scoredEvents": {
+      "scam": 6469,
+      "legit": 1587
+    },
+    "auc": {
+      "rule": 0.9404446761410128,
+      "bankLearned": 0.9483292086742402,
+      "federated": 0.9975906614094676
+    },
+    "lossRateHoldAllTriggered": 0.08781853300397159,
+    "matched": {
+      "rule": {
+        "theta": 0.5,
+        "LR": 0.08958384574619291,
+        "FHR": 0.006104952741021424,
+        "FHR_onCall": 0.15377714712896892,
+        "frictionCost": 6429783.977954305,
+        "netBenefit": 23128423.68777897
+      },
+      "bankLearned": {
+        "theta": 0.5,
+        "LR": 0.09039212774305884,
+        "FHR": 0.003944524259609781,
+        "FHR_onCall": 0.0993582936929195,
+        "frictionCost": 4205475.953076375,
+        "netBenefit": 25326489.46398391
+      },
+      "federated": {
+        "theta": 0.4,
+        "LR": 0.091731338147202,
+        "FHR": 0.0006760050409578612,
+        "FHR_onCall": 0.017027834784828985,
+        "frictionCost": 711755.8665289185,
+        "netBenefit": 28776729.808823336
+      }
+    },
+    "curves": {
+      "rule": [
+        {
+          "theta": 0,
+          "LR": 0.08781853300397159,
+          "FHR": 0.01106000000000103,
+          "FHR_onCall": 0.27858942065487585,
+          "frictionCost": 11596128.200565131,
+          "netBenefit": 18019393.34342672
+        },
+        {
+          "theta": 0.1,
+          "LR": 0.08781853300397159,
+          "FHR": 0.01106000000000103,
+          "FHR_onCall": 0.27858942065487585,
+          "frictionCost": 11596128.200565131,
+          "netBenefit": 18019393.34342672
+        },
+        {
+          "theta": 0.2,
+          "LR": 0.08781853300397159,
+          "FHR": 0.01106000000000103,
+          "FHR_onCall": 0.27858942065487585,
+          "frictionCost": 11596128.200565131,
+          "netBenefit": 18019393.34342672
+        },
+        {
+          "theta": 0.3,
+          "LR": 0.08781853300397159,
+          "FHR": 0.01106000000000103,
+          "FHR_onCall": 0.27858942065487585,
+          "frictionCost": 11596128.200565131,
+          "netBenefit": 18019393.34342672
+        },
+        {
+          "theta": 0.4,
+          "LR": 0.08807951148085429,
+          "FHR": 0.008739281663516911,
+          "FHR_onCall": 0.22013303938324855,
+          "frictionCost": 9175203.236800237,
+          "netBenefit": 20431845.197416544
+        },
+        {
+          "theta": 0.5,
+          "LR": 0.08958384574619291,
+          "FHR": 0.006104952741021424,
+          "FHR_onCall": 0.15377714712896892,
+          "frictionCost": 6429783.977954305,
+          "netBenefit": 23128423.68777897
+        },
+        {
+          "theta": 0.6,
+          "LR": 0.0949488665134969,
+          "FHR": 0.003212766225583254,
+          "FHR_onCall": 0.08092610140006397,
+          "frictionCost": 3381117.581286991,
+          "netBenefit": 26002905.567585506
+        },
+        {
+          "theta": 0.7,
+          "LR": 0.10693269666439593,
+          "FHR": 0.0017074354127286115,
+          "FHR_onCall": 0.04300844868333077,
+          "frictionCost": 1774825.4960901032,
+          "netBenefit": 27220122.24086654
+        },
+        {
+          "theta": 0.8,
+          "LR": 0.14680190582964286,
+          "FHR": 0.000996584751102825,
+          "FHR_onCall": 0.025102890455984964,
+          "frictionCost": 1018914.8072372596,
+          "netBenefit": 26681611.297953837
+        },
+        {
+          "theta": 0.85,
+          "LR": 0.19857904748901614,
+          "FHR": 0.0004669313169502746,
+          "FHR_onCall": 0.011761494129727221,
+          "frictionCost": 490366.9454259782,
+          "netBenefit": 25529126.262496047
+        },
+        {
+          "theta": 0.9,
+          "LR": 0.33796369028001,
+          "FHR": 0.00013241335853813766,
+          "FHR_onCall": 0.0033353490815644384,
+          "frictionCost": 152938.4767771412,
+          "netBenefit": 21341195.423997004
+        },
+        {
+          "theta": 0.95,
+          "LR": 0.698467492608366,
+          "FHR": 0.000013938248267172378,
+          "FHR_onCall": 0.0003510893770067828,
+          "frictionCost": 19293.104599997354,
+          "netBenefit": 9770472.190982025
+        },
+        {
+          "theta": 0.97,
+          "LR": 0.7512338810385344,
+          "FHR": 0,
+          "FHR_onCall": 0,
+          "frictionCost": 0,
+          "netBenefit": 8076614.820711546
+        },
+        {
+          "theta": 0.99,
+          "LR": 0.8566526230890572,
+          "FHR": 0,
+          "FHR_onCall": 0,
+          "frictionCost": 0,
+          "netBenefit": 4654016.204869058
+        }
+      ],
+      "bankLearned": [
+        {
+          "theta": 0,
+          "LR": 0.08781853300397159,
+          "FHR": 0.01106000000000103,
+          "FHR_onCall": 0.27858942065487585,
+          "frictionCost": 11596128.200565131,
+          "netBenefit": 18019393.34342672
+        },
+        {
+          "theta": 0.1,
+          "LR": 0.08792728891260003,
+          "FHR": 0.008342041587902513,
+          "FHR_onCall": 0.2101269921385556,
+          "frictionCost": 8742719.298247151,
+          "netBenefit": 20869271.300344516
+        },
+        {
+          "theta": 0.2,
+          "LR": 0.08814463723476088,
+          "FHR": 0.008028431001891144,
+          "FHR_onCall": 0.20222748115590325,
+          "frictionCost": 8443244.107463785,
+          "netBenefit": 21161689.90847366
+        },
+        {
+          "theta": 0.3,
+          "LR": 0.08825115844604146,
+          "FHR": 0.007157290485192902,
+          "FHR_onCall": 0.1802843950929801,
+          "frictionCost": 7547105.858873405,
+          "netBenefit": 22054369.76491104
+        },
+        {
+          "theta": 0.4,
+          "LR": 0.08893203242913776,
+          "FHR": 0.005240781348456767,
+          "FHR_onCall": 0.13200960575454915,
+          "frictionCost": 5552339.08162696,
+          "netBenefit": 24027030.811176635
+        },
+        {
+          "theta": 0.5,
+          "LR": 0.09039212774305884,
+          "FHR": 0.003944524259609781,
+          "FHR_onCall": 0.0993582936929195,
+          "frictionCost": 4205475.953076375,
+          "netBenefit": 25326489.46398391
+        },
+        {
+          "theta": 0.6,
+          "LR": 0.10060228136045854,
+          "FHR": 0.003059445494644355,
+          "FHR_onCall": 0.07706411825298928,
+          "frictionCost": 3234430.0270620706,
+          "netBenefit": 25966045.40103872
+        },
+        {
+          "theta": 0.7,
+          "LR": 0.11742958642272613,
+          "FHR": 0.0021604284814117215,
+          "FHR_onCall": 0.054418853436051406,
+          "frictionCost": 2281889.9932043506,
+          "netBenefit": 26372258.378680244
+        },
+        {
+          "theta": 0.8,
+          "LR": 0.144046375644513,
+          "FHR": 0.001177781978576064,
+          "FHR_onCall": 0.029667052357073103,
+          "frictionCost": 1234137.9823744402,
+          "netBenefit": 26555851.093196418
+        },
+        {
+          "theta": 0.85,
+          "LR": 0.16257226256768936,
+          "FHR": 0.0008362948960303439,
+          "FHR_onCall": 0.021065362620407,
+          "frictionCost": 884442.0501921407,
+          "netBenefit": 26304072.622372378
+        },
+        {
+          "theta": 0.9,
+          "LR": 0.24988399812963336,
+          "FHR": 0.0003414870825457231,
+          "FHR_onCall": 0.008601689736666173,
+          "frictionCost": 369299.28433596774,
+          "netBenefit": 23984491.51021171
+        },
+        {
+          "theta": 0.95,
+          "LR": 0.4372216211911385,
+          "FHR": 0.00012544423440455146,
+          "FHR_onCall": 0.003159804393061047,
+          "frictionCost": 134153.08436470438,
+          "netBenefit": 18137403.40427333
+        },
+        {
+          "theta": 0.97,
+          "LR": 0.8899145672707379,
+          "FHR": 0.000006969124133586189,
+          "FHR_onCall": 0.0001755446885033914,
+          "frictionCost": 6378.445470480071,
+          "netBenefit": 3567732.214121906
+        },
+        {
+          "theta": 0.99,
+          "LR": 1,
+          "FHR": 0,
+          "FHR_onCall": 0,
+          "frictionCost": 0,
+          "netBenefit": 0
+        }
+      ],
+      "federated": [
+        {
+          "theta": 0,
+          "LR": 0.08781853300397159,
+          "FHR": 0.01106000000000103,
+          "FHR_onCall": 0.27858942065487585,
+          "frictionCost": 11596128.200565131,
+          "netBenefit": 18019393.34342672
+        },
+        {
+          "theta": 0.1,
+          "LR": 0.08824502936234467,
+          "FHR": 0.001770157529930888,
+          "FHR_onCall": 0.04458835087986132,
+          "frictionCost": 1837192.9358581784,
+          "netBenefit": 27764481.679044627
+        },
+        {
+          "theta": 0.2,
+          "LR": 0.08888000029669928,
+          "FHR": 0.000996584751102825,
+          "FHR_onCall": 0.025102890455984964,
+          "frictionCost": 1036521.7316757404,
+          "netBenefit": 28544537.472734112
+        },
+        {
+          "theta": 0.3,
+          "LR": 0.09162563286580028,
+          "FHR": 0.0007526654064273095,
+          "FHR_onCall": 0.0189588263583663,
+          "frictionCost": 794386.7716239281,
+          "netBenefit": 28697530.805331167
+        },
+        {
+          "theta": 0.4,
+          "LR": 0.091731338147202,
+          "FHR": 0.0006760050409578612,
+          "FHR_onCall": 0.017027834784828985,
+          "frictionCost": 711755.8665289185,
+          "netBenefit": 28776729.808823336
+        },
+        {
+          "theta": 0.5,
+          "LR": 0.0930355423021869,
+          "FHR": 0.0005714681789540678,
+          "FHR_onCall": 0.014394664457278104,
+          "frictionCost": 591033.2562901846,
+          "netBenefit": 28855109.214724757
+        },
+        {
+          "theta": 0.6,
+          "LR": 0.09500608653681246,
+          "FHR": 0.0004529930686831021,
+          "FHR_onCall": 0.011410404752720437,
+          "frictionCost": 482597.11603231006,
+          "netBenefit": 28899568.28753998
+        },
+        {
+          "theta": 0.7,
+          "LR": 0.09789706212676591,
+          "FHR": 0.00036936357908006775,
+          "FHR_onCall": 0.009303868490679738,
+          "frictionCost": 393708.0809637822,
+          "netBenefit": 28894596.886976797
+        },
+        {
+          "theta": 0.8,
+          "LR": 0.10464299132221991,
+          "FHR": 0.0002857340894770337,
+          "FHR_onCall": 0.007197332228639046,
+          "frictionCost": 310993.39190489036,
+          "netBenefit": 28758293.520253286
+        },
+        {
+          "theta": 0.85,
+          "LR": 0.11003767288628684,
+          "FHR": 0.00018119722747324103,
+          "FHR_onCall": 0.0045641619010881795,
+          "frictionCost": 184351.5306129297,
+          "netBenefit": 28709787.87651016
+        },
+        {
+          "theta": 0.9,
+          "LR": 0.122481910322728,
+          "FHR": 0.00009756773787020668,
+          "FHR_onCall": 0.0024576256390474805,
+          "frictionCost": 95470.08604879351,
+          "netBenefit": 28394646.004188515
+        },
+        {
+          "theta": 0.95,
+          "LR": 0.1704444269519976,
+          "FHR": 0.000041814744801517135,
+          "FHR_onCall": 0.0010532681310203484,
+          "frictionCost": 38272.465607624465,
+          "netBenefit": 26894659.01177415
+        },
+        {
+          "theta": 0.97,
+          "LR": 0.2298402524604574,
+          "FHR": 0.000027876496534344757,
+          "FHR_onCall": 0.0007021787540135656,
+          "frictionCost": 25514.146614957328,
+          "netBenefit": 24979030.914671574
+        },
+        {
+          "theta": 0.99,
+          "LR": 1,
+          "FHR": 0,
+          "FHR_onCall": 0,
+          "frictionCost": 0,
+          "netBenefit": 0
+        }
+      ]
+    }
+  }
+}
