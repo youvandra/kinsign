@@ -1,3 +1,4 @@
 export { MockLedger, type LedgerEntry, type LedgerEntryKind } from './ledger.ts'
 export { CORE_POLICY, DURESS_REASON, bankScore, decide, features, interviewBoost, norm, triggered, type PolicyConfig } from './policy.ts'
+export { RecordStore, extendChain, recordHash, type DecisionRecord, type RefusedRecord } from './records.ts'
 export type { Action, Customer, Decision, Features, HoldOnChain, ReleaseLedgerPort, TransferRequest } from './types.ts'
