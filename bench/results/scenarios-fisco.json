@@ -1,0 +1,1124 @@
+{
+  "summary": {
+    "network": "FISCO BCOS local",
+    "contract": "0x78714B06a99143aCCC3847efAFb20a2BdE546820",
+    "cases": 63,
+    "passed": 63,
+    "scam": {
+      "cases": 45,
+      "victimReleases": 0,
+      "valueAttempted": 1107000,
+      "valueLost": 0,
+      "held": 45,
+      "refusedOnChain": 45
+    },
+    "legit": {
+      "cases": 18,
+      "paidAtOnce": 12,
+      "held": 6,
+      "releasedAfterHold": 3
+    },
+    "transactions": 226,
+    "failedTransactions": 45
+  },
+  "results": [
+    {
+      "id": "scam/authority/zh/circle blocks",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "zh",
+      "variant": "circle blocks",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 0.929,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/authority/zh/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "zh",
+      "variant": "caller has the victim remove the son",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 0.929,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/authority/zh/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "zh",
+      "variant": "victim types the duress PIN",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/authority/id/circle blocks",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "id",
+      "variant": "circle blocks",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 0.929,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/authority/id/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "id",
+      "variant": "caller has the victim remove the son",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 0.929,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/authority/id/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "id",
+      "variant": "victim types the duress PIN",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/authority/en/circle blocks",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "en",
+      "variant": "circle blocks",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 0.929,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/authority/en/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "en",
+      "variant": "caller has the victim remove the son",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 0.929,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/authority/en/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "authority",
+      "lang": "en",
+      "variant": "victim types the duress PIN",
+      "amount": 50000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/zh/circle blocks",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "zh",
+      "variant": "circle blocks",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 0.85,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/zh/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "zh",
+      "variant": "caller has the victim remove the son",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 0.85,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/zh/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "zh",
+      "variant": "victim types the duress PIN",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/id/circle blocks",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "id",
+      "variant": "circle blocks",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 0.85,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/id/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "id",
+      "variant": "caller has the victim remove the son",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 0.85,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/id/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "id",
+      "variant": "victim types the duress PIN",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/en/circle blocks",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "en",
+      "variant": "circle blocks",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 0.85,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/en/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "en",
+      "variant": "caller has the victim remove the son",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 0.85,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/kin/en/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "kin",
+      "lang": "en",
+      "variant": "victim types the duress PIN",
+      "amount": 20000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/zh/circle blocks",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "zh",
+      "variant": "circle blocks",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 0.957,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/zh/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "zh",
+      "variant": "caller has the victim remove the son",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 0.957,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/zh/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "zh",
+      "variant": "victim types the duress PIN",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/id/circle blocks",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "id",
+      "variant": "circle blocks",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 0.957,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/id/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "id",
+      "variant": "caller has the victim remove the son",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 0.957,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/id/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "id",
+      "variant": "victim types the duress PIN",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/en/circle blocks",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "en",
+      "variant": "circle blocks",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 0.957,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/en/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "en",
+      "variant": "caller has the victim remove the son",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 0.957,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/refund/en/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "refund",
+      "lang": "en",
+      "variant": "victim types the duress PIN",
+      "amount": 8000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/zh/circle blocks",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "zh",
+      "variant": "circle blocks",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 0.899,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/zh/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "zh",
+      "variant": "caller has the victim remove the son",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 0.899,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/zh/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "zh",
+      "variant": "victim types the duress PIN",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/id/circle blocks",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "id",
+      "variant": "circle blocks",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 0.899,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/id/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "id",
+      "variant": "caller has the victim remove the son",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 0.899,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/id/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "id",
+      "variant": "victim types the duress PIN",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/en/circle blocks",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "en",
+      "variant": "circle blocks",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 0.899,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/en/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "en",
+      "variant": "caller has the victim remove the son",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 0.899,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/investment/en/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "investment",
+      "lang": "en",
+      "variant": "victim types the duress PIN",
+      "amount": 30000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/zh/circle blocks",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "zh",
+      "variant": "circle blocks",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 0.991,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/zh/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "zh",
+      "variant": "caller has the victim remove the son",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 0.991,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/zh/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "zh",
+      "variant": "victim types the duress PIN",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/id/circle blocks",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "id",
+      "variant": "circle blocks",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 0.991,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/id/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "id",
+      "variant": "caller has the victim remove the son",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 0.991,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/id/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "id",
+      "variant": "victim types the duress PIN",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/en/circle blocks",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "en",
+      "variant": "circle blocks",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 0.991,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/en/caller has the victim remove the son",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "en",
+      "variant": "caller has the victim remove the son",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 0.991,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "scam/takeover/en/victim types the duress PIN",
+      "kind": "scam",
+      "typology": "takeover",
+      "lang": "en",
+      "variant": "victim types the duress PIN",
+      "amount": 15000,
+      "decision": "hold",
+      "score": 1,
+      "expect": "Blocked",
+      "final": "Blocked",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [
+        "holderRelease: NotMember"
+      ],
+      "problems": []
+    },
+    {
+      "id": "legit/bill/zh",
+      "kind": "legit",
+      "typology": "bill",
+      "lang": "zh",
+      "variant": "known payee during a call",
+      "amount": 300,
+      "decision": "pay",
+      "score": 0.354,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 300,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/bill/id",
+      "kind": "legit",
+      "typology": "bill",
+      "lang": "id",
+      "variant": "known payee during a call",
+      "amount": 300,
+      "decision": "pay",
+      "score": 0.354,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 600,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/bill/en",
+      "kind": "legit",
+      "typology": "bill",
+      "lang": "en",
+      "variant": "known payee during a call",
+      "amount": 300,
+      "decision": "pay",
+      "score": 0.354,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 900,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/tuition/zh",
+      "kind": "legit",
+      "typology": "tuition",
+      "lang": "zh",
+      "variant": "known school, call with daughter",
+      "amount": 3000,
+      "decision": "pay",
+      "score": 0.214,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 3000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/tuition/id",
+      "kind": "legit",
+      "typology": "tuition",
+      "lang": "id",
+      "variant": "known school, call with daughter",
+      "amount": 3000,
+      "decision": "pay",
+      "score": 0.214,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 6000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/tuition/en",
+      "kind": "legit",
+      "typology": "tuition",
+      "lang": "en",
+      "variant": "known school, call with daughter",
+      "amount": 3000,
+      "decision": "pay",
+      "score": 0.214,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 9000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/new payee/zh",
+      "kind": "legit",
+      "typology": "new payee",
+      "lang": "zh",
+      "variant": "new payee, no call",
+      "amount": 900,
+      "decision": "pay",
+      "score": 0.119,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 900,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/new payee/id",
+      "kind": "legit",
+      "typology": "new payee",
+      "lang": "id",
+      "variant": "new payee, no call",
+      "amount": 900,
+      "decision": "pay",
+      "score": 0.119,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 1800,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/new payee/en",
+      "kind": "legit",
+      "typology": "new payee",
+      "lang": "en",
+      "variant": "new payee, no call",
+      "amount": 900,
+      "decision": "pay",
+      "score": 0.119,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 2700,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/large/zh",
+      "kind": "legit",
+      "typology": "large",
+      "lang": "zh",
+      "variant": "large amount to known payee, no call",
+      "amount": 15000,
+      "decision": "pay",
+      "score": 0.176,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 24000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/large/id",
+      "kind": "legit",
+      "typology": "large",
+      "lang": "id",
+      "variant": "large amount to known payee, no call",
+      "amount": 15000,
+      "decision": "pay",
+      "score": 0.176,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 39000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/large/en",
+      "kind": "legit",
+      "typology": "large",
+      "lang": "en",
+      "variant": "large amount to known payee, no call",
+      "amount": 15000,
+      "decision": "pay",
+      "score": 0.176,
+      "expect": "paid",
+      "final": "paid",
+      "pass": true,
+      "paidToPayee": 54000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/hospital/zh",
+      "kind": "legit",
+      "typology": "hospital",
+      "lang": "zh",
+      "variant": "relative really in hospital, call with a saved contact",
+      "amount": 12000,
+      "decision": "hold",
+      "score": 0.701,
+      "expect": "Released",
+      "final": "Released",
+      "pass": true,
+      "paidToPayee": 12000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/hospital/id",
+      "kind": "legit",
+      "typology": "hospital",
+      "lang": "id",
+      "variant": "relative really in hospital, call with a saved contact",
+      "amount": 12000,
+      "decision": "hold",
+      "score": 0.701,
+      "expect": "Released",
+      "final": "Released",
+      "pass": true,
+      "paidToPayee": 24000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/hospital/en",
+      "kind": "legit",
+      "typology": "hospital",
+      "lang": "en",
+      "variant": "relative really in hospital, call with a saved contact",
+      "amount": 12000,
+      "decision": "hold",
+      "score": 0.701,
+      "expect": "Released",
+      "final": "Released",
+      "pass": true,
+      "paidToPayee": 36000,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/change of mind/zh",
+      "kind": "legit",
+      "typology": "change of mind",
+      "lang": "zh",
+      "variant": "held, customer cancels",
+      "amount": 7000,
+      "decision": "hold",
+      "score": 0.779,
+      "expect": "Cancelled",
+      "final": "Cancelled",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/change of mind/id",
+      "kind": "legit",
+      "typology": "change of mind",
+      "lang": "id",
+      "variant": "held, customer cancels",
+      "amount": 7000,
+      "decision": "hold",
+      "score": 0.779,
+      "expect": "Cancelled",
+      "final": "Cancelled",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [],
+      "problems": []
+    },
+    {
+      "id": "legit/change of mind/en",
+      "kind": "legit",
+      "typology": "change of mind",
+      "lang": "en",
+      "variant": "held, customer cancels",
+      "amount": 7000,
+      "decision": "hold",
+      "score": 0.779,
+      "expect": "Cancelled",
+      "final": "Cancelled",
+      "pass": true,
+      "paidToPayee": 0,
+      "refusals": [],
+      "problems": []
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@kinsign/bench",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "scenarios": "tsx src/scenarios/run.ts",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@kinsign/chain": "*",
+    "@kinsign/core": "*",
+    "viem": "2.57.3"
+  }
+}
