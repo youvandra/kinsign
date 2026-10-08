@@ -1,0 +1,16 @@
+{
+  "name": "@kinsign/core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@kinsign/protocol": "*",
+    "viem": "2.57.3"
+  }
+}
