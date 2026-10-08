@@ -1,0 +1,35 @@
+{
+  "name": "kinsign",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "bench"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev -w @kinsign/api",
+    "dev:web": "npm run dev -w @kinsign/web",
+    "build": "npm run build -w @kinsign/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "bench:scenarios": "npm run scenarios -w @kinsign/bench",
+    "bench:population": "npm run population -w @kinsign/bench",
+    "bench:fate-export": "npm run fate:export -w @kinsign/bench"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.5.2",
+    "eslint": "10.11.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "16.4.0",
+    "prettier": "3.6.2",
+    "tsx": "4.20.5",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.70.1",
+    "vitest": "2.1.9"
+  }
+}

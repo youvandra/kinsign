@@ -1,0 +1,10 @@
+node_modules
+dist
+bench/results
+federation/out
+contracts/lib
+contracts/out
+contracts/cache
+infra/fisco/build
+package-lock.json
+*.md
