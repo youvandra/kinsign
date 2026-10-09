@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import { createBrowserRouter, type RouteObject } from 'react-router'
 import RootLayout from './layouts/RootLayout'
+import SiteLayout from './layouts/SiteLayout'
 
 /** Turns a page module's default export into a route's lazy component, so each page ships its own code. */
 const page =
@@ -12,9 +13,17 @@ export const routes: RouteObject[] = [
     element: <RootLayout />,
     HydrateFallback: () => <div className="min-h-screen bg-ground" />,
     children: [
+      {
+        element: <SiteLayout />,
+        children: [{ index: true, lazy: page(() => import('@/features/landing/LandingPage')) }],
+      },
       { path: 'phone', lazy: page(() => import('@/features/phone/PhonePage')) },
       { path: 'family', lazy: page(() => import('@/features/family/FamilyPage')) },
       { path: 'stage', lazy: page(() => import('@/features/stage/StagePage')) },
+      {
+        element: <SiteLayout />,
+        children: [{ path: '*', lazy: page(() => import('@/features/not-found/NotFoundPage')) }],
+      },
     ],
   },
 ]
