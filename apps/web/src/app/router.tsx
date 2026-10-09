@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import { createBrowserRouter, type RouteObject } from 'react-router'
+import { createBrowserRouter, Navigate, type RouteObject } from 'react-router'
 import RootLayout from './layouts/RootLayout'
 import SiteLayout from './layouts/SiteLayout'
 
@@ -16,6 +16,14 @@ export const routes: RouteObject[] = [
       {
         element: <SiteLayout />,
         children: [{ index: true, lazy: page(() => import('@/features/landing/LandingPage')) }],
+      },
+      {
+        path: 'docs',
+        lazy: page(() => import('@/features/docs/DocsLayout')),
+        children: [
+          { index: true, element: <Navigate to="/docs/introduction" replace /> },
+          { path: '*', lazy: page(() => import('@/features/docs/DocsPage')) },
+        ],
       },
       { path: 'phone', lazy: page(() => import('@/features/phone/PhonePage')) },
       { path: 'family', lazy: page(() => import('@/features/family/FamilyPage')) },
