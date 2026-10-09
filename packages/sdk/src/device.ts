@@ -4,7 +4,7 @@
  * make a family decision on their behalf.
  */
 import type { ConfigView, Hex, TxResult } from '@kinsign/protocol'
-import { BaseError, ContractFunctionRevertedError, createPublicClient, createWalletClient, defineChain, http, type Abi } from 'viem'
+import { BaseError, ContractFunctionRevertedError, createPublicClient, createWalletClient, decodeErrorResult, defineChain, http, type Abi } from 'viem'
 import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
 
 export interface DeviceOptions {
@@ -26,11 +26,23 @@ const DEFAULT_GAS_LIMIT = 400_000n
 
 export const generateKey = (): Hex => generatePrivateKey()
 
-/** The custom error a reverted call carries, e.g. `NotMember`. */
-export function revertName(e: unknown): string {
+/**
+ * The custom error a reverted call carries, e.g. `NotMember`. FISCO BCOS
+ * returns the revert data raw in `error.data`, so it is decoded with the ABI.
+ */
+export function revertName(e: unknown, abi?: Abi): string {
   if (!(e instanceof BaseError)) return 'reverted'
   const reverted = e.walk((x) => x instanceof ContractFunctionRevertedError) as ContractFunctionRevertedError | null
-  return reverted?.data?.errorName ?? 'reverted'
+  if (reverted?.data?.errorName) return reverted.data.errorName
+  const data = (e.walk((x) => typeof (x as { data?: unknown }).data === 'string') as { data?: Hex } | null)?.data
+  if (abi && data?.startsWith('0x')) {
+    try {
+      return decodeErrorResult({ abi, data }).errorName
+    } catch {
+      // unknown error selector
+    }
+  }
+  return 'reverted'
 }
 
 export function createDevice({ key, config, rpcUrl, gasLimit = DEFAULT_GAS_LIMIT }: DeviceOptions): Device {
@@ -52,7 +64,7 @@ export function createDevice({ key, config, rpcUrl, gasLimit = DEFAULT_GAS_LIMIT
       try {
         await pub.simulateContract({ address: config.contract, abi, functionName, args, account })
       } catch (e) {
-        reason = revertName(e)
+        reason = revertName(e, abi)
       }
       const hash = await wallet.writeContract({ address: config.contract, abi, functionName, args, gas: gasLimit, gasPrice: 0n })
       const receipt = await pub.waitForTransactionReceipt({ hash })
