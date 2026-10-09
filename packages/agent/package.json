@@ -1,0 +1,17 @@
+{
+  "name": "@kinsign/agent",
+  "private": true,
+  "version": "0.1.0",
+  "description": "The customer's payment assistant, the in-call interview reader and the family summary",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.132.1",
+    "@kinsign/protocol": "*"
+  }
+}
