@@ -26,11 +26,12 @@ export function useAssistant({ channelNow, duress, showResult, refresh }: PhoneS
     }
   }
 
-  const ask = () =>
+  /** Sends the typed question, or `prompt` when a button asks on her behalf. */
+  const ask = (prompt?: string) =>
     run(async () => {
-      const said = text.trim()
+      const said = (prompt ?? text).trim()
       if (!said) return
-      setText('')
+      if (prompt === undefined) setText('')
       setView(await api.assistant.chat(said, view?.conversationId))
     })
 

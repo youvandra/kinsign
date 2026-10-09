@@ -1,4 +1,4 @@
-import type { HoldState } from '@kinsign/protocol'
+import type { Category, HoldState } from '@kinsign/protocol'
 
 /** English strings; the other locales must provide every key. */
 export const en = {
@@ -157,6 +157,32 @@ export const en = {
   noted: (n: number) =>
     n > 0 ? `Thank you. ${n === 1 ? 'One warning sign' : `${n} warning signs`} added for your son.` : 'Thank you. The payment stays paused.',
   familyNote: 'Summary for you',
+  // money
+  money: 'This month',
+  moneySpent: 'Spent',
+  moneyLeft: 'Left from income',
+  moneyBudgets: 'Budgets',
+  moneyTips: 'For you',
+  moneyNone: 'Nothing needs your attention this month.',
+  moneyOfLimit: (spent: string, limit: string) => `${spent} of ${limit}`,
+  moneySetBudget: (limit: string) => `Set ${limit} budget`,
+  moneySave: (amount: string) => `Prepare ${amount} to savings`,
+  moneyBudgetSet: 'Budget saved',
+  moneyAskSave: (amount: number) => `send ${amount} to Savings account`,
+  cat: {
+    income: 'Income',
+    housing: 'Housing',
+    utilities: 'Utilities',
+    phone: 'Phone',
+    groceries: 'Groceries',
+    health: 'Health',
+    education: 'Education',
+    family: 'Family',
+    dining: 'Dining out',
+    transport: 'Transport',
+    savings: 'Savings',
+    other: 'Other',
+  } as Record<Category, string>,
 }
 
 export type Strings = typeof en
