@@ -116,6 +116,61 @@ export interface TxResult {
   hash?: Hex
 }
 
+export type Lang = 'en' | 'zh' | 'id'
+
+/** A transfer the assistant prepared. It moves no money until the customer confirms it on screen. */
+export interface TransferDraft {
+  id: string
+  payee: string
+  amount: number
+  note: string
+  state: 'pending' | 'sent' | 'dismissed'
+}
+
+export interface ChatLine {
+  role: 'customer' | 'assistant'
+  text: string
+}
+
+export interface AssistantView {
+  conversationId: string
+  /** Who answers: Claude through the API, or the offline rules when no model is configured. */
+  mode: 'claude' | 'offline'
+  transcript: ChatLine[]
+  drafts: TransferDraft[]
+}
+
+export interface ChatBody {
+  conversationId?: string
+  text: string
+}
+
+export interface ConfirmDraftBody {
+  conversationId: string
+  draftId: string
+  channel: ChannelState
+  duress?: boolean
+}
+
+/** What the customer said in her own words during a hold, and the answers taken from it. */
+export interface InterviewTextBody {
+  holdId: Hex
+  text: string
+}
+
+export interface InterviewReading {
+  answers: InterviewAnswers
+  /** Whether anything was attested: a reading with no "yes" changes nothing (I3). */
+  attested: boolean
+}
+
+export interface HoldSummary {
+  holdId: Hex
+  lang: Lang
+  mode: 'claude' | 'offline'
+  text: string
+}
+
 /** Every API path in one place, so a typo is a type error on both sides. */
 export const API = {
   config: '/api/config',
@@ -130,5 +185,11 @@ export const API = {
   escalate: '/api/demo/escalate',
   review: '/api/demo/review',
   warp: '/api/demo/warp',
+  assistant: '/api/assistant',
+  assistantChat: '/api/assistant/chat',
+  assistantConfirm: '/api/assistant/confirm',
+  assistantDismiss: '/api/assistant/dismiss',
+  interviewText: '/api/interview/text',
+  familySummary: '/api/holds/summary',
   rpc: '/rpc',
 } as const
