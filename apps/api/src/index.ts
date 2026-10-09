@@ -8,11 +8,13 @@
 import { createServer } from 'node:http'
 import { networkFromEnv } from '@kinsign/chain'
 import { API } from '@kinsign/protocol'
+import { openAssistant } from './assistant.ts'
 import { Bank } from './bank.ts'
 import { config } from './config.ts'
 import { proxyRpc } from './http/rpc-proxy.ts'
 import { HttpError, readBody, Router, sendJson } from './http/router.ts'
 import { serveApp } from './http/static.ts'
+import { assistantRoutes } from './routes/assistant.ts'
 import { bankRoutes } from './routes/bank.ts'
 import { demoRoutes } from './routes/demo.ts'
 import { recordRoutes } from './routes/records.ts'
@@ -24,6 +26,7 @@ const router = new Router()
 bankRoutes(router, bank)
 recordRoutes(router, bank)
 demoRoutes(router, bank)
+assistantRoutes(router, bank, openAssistant(bank))
 
 const server = createServer(async (req, res) => {
   const { pathname } = new URL(req.url ?? '/', 'http://localhost')
@@ -40,7 +43,7 @@ const server = createServer(async (req, res) => {
 })
 
 server.listen(config.port, () => {
-  console.log(`Kinsign bank API on http://localhost:${config.port} · ${network.label} · release contract ${bank.chain.address}`)
+  console.log(`Kinsign bank API on http://localhost:${config.port} · ${network.label} · release contract ${bank.chain.address} · assistant ${config.assistant}`)
 })
 
 const shutdown = () => {

@@ -1,4 +1,4 @@
-import type { ChannelState, Hex, InterviewAnswers } from '@kinsign/protocol'
+import type { ChannelState, Hex, InterviewAnswers, Lang } from '@kinsign/protocol'
 import { HttpError } from './router.ts'
 
 type Obj = Record<string, unknown>
@@ -55,4 +55,16 @@ export function interviewYeses(value: unknown): InterviewAnswers {
   const out: InterviewAnswers = {}
   for (const key of ['askedBySomeoneOnCall', 'toldToKeepSecret', 'promisedReturnOrThreatened'] as const) if (a[key] === true) out[key] = true
   return out
+}
+
+const LANGS: readonly Lang[] = ['en', 'zh', 'id']
+
+export function lang(o: Obj, key: string): Lang {
+  const v = o[key]
+  if (typeof v !== 'string' || !(LANGS as readonly string[]).includes(v)) throw new HttpError(400, `${key} must be one of ${LANGS.join(', ')}`)
+  return v as Lang
+}
+
+export function optionalString(o: Obj, key: string, max: number): string | undefined {
+  return o[key] === undefined || o[key] === null ? undefined : string(o, key, max)
 }

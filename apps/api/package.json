@@ -12,6 +12,7 @@
     "typecheck": "tsc -p ."
   },
   "dependencies": {
+    "@kinsign/agent": "*",
     "@kinsign/chain": "*",
     "@kinsign/core": "*",
     "@kinsign/protocol": "*",
