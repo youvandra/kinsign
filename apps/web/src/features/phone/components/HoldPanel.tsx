@@ -4,6 +4,7 @@ import { ArrowButton, Segmented, Status } from '@/components/ui'
 import type { Lang, Strings } from '@/i18n'
 import { yuan } from '@/lib/format'
 import type { AnswerKey, Answers, PhoneAction } from '../usePhoneSession'
+import InterviewText from './InterviewText'
 
 interface Props {
   hold: HoldView
@@ -60,6 +61,7 @@ export default function HoldPanel({ hold, t, lang, answers, busy, onAnswer, onRe
           />
         </div>
       ))}
+      <InterviewText hold={hold} t={t} />
 
       <div className="mt-4 grid gap-2.5">
         <ArrowButton variant="dark" block text={t.releaseSelf} icon={Smartphone} disabled={!!busy} onClick={onReleaseMyself} />

@@ -3,11 +3,13 @@ import { LangSelect, NavPill } from '@/components/ui'
 import Director from '@/features/director/Director'
 import { useT } from '@/i18n'
 import { useMedia, useTitle, WIDE_QUERY } from '@/lib/hooks'
+import AssistantCard from './components/AssistantCard'
 import BalanceCard from './components/BalanceCard'
 import PhoneSheet from './components/PhoneSheet'
 import QuickActions from './components/QuickActions'
 import RecentFeed from './components/RecentFeed'
 import SendForm from './components/SendForm'
+import { useAssistant } from './useAssistant'
 import { usePhoneSession } from './usePhoneSession'
 
 /** Mum's phone: a banking app in an iPhone frame, with the director beside it. */
@@ -17,6 +19,7 @@ export default function PhonePage() {
   const { t, lang } = useT()
   useTitle(`Kinsign · ${t.appPhone}`)
   const session = usePhoneSession()
+  const assistant = useAssistant(session.transfers)
   const { account, feed, call, callSince, form, busy, actions } = session
   const island = call.onCall && callSince ? { since: callSince, sharing: call.screenCaptured } : null
 
@@ -26,6 +29,7 @@ export default function PhonePage() {
       <p className="text-[22px] font-medium tracking-[-0.02em]">{t.mum}</p>
       <BalanceCard balance={account?.balance} t={t} lang={lang} />
       <QuickActions t={t} />
+      <AssistantCard session={assistant} t={t} lang={lang} />
       <SendForm
         t={t}
         payee={form.payee}

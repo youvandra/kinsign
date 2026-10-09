@@ -2,7 +2,7 @@
  * State and actions of Mum's phone: the call the director sets, the transfer
  * form, the sheet that shows a hold or a result, and her own device's actions.
  */
-import type { Hex, HoldView } from '@kinsign/protocol'
+import type { ChannelState, Hex, HoldView, TransferResult } from '@kinsign/protocol'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useToast } from '@/components/ui'
 import { useT } from '@/i18n'
@@ -106,27 +106,31 @@ export function usePhoneSession() {
     [toast, refresh],
   )
 
+  /** What the phone reports about the call at this moment, for any transfer it sends. */
+  const channelNow = useCallback(
+    (): ChannelState => ({
+      onCall: call.onCall,
+      callSeconds: call.onCall && callSince ? Math.round((Date.now() - callSince) / 1000) : 0,
+      callerSaved: call.onCall && call.callerSaved,
+      screenCaptured: call.screenCaptured,
+      remoteControlApp: call.remoteControlApp,
+    }),
+    [call, callSince],
+  )
+
+  /** A transfer the bank answered: follow its hold, or show the receipt. */
+  const showResult = useCallback((result: TransferResult, amount: number, to: string) => {
+    setAnswers({})
+    if (result.holdId) setWatched(result.holdId)
+    else setPaid({ amount, payee: to })
+  }, [])
+
   const send = () =>
     run('send', async () => {
       const value = Number(amount)
       const to = payee.trim()
       if (!to || !value) return
-      const callSeconds = call.onCall && callSince ? Math.round((Date.now() - callSince) / 1000) : 0
-      const result = await api.transfer({
-        payee: to,
-        amount: value,
-        duress: call.duress,
-        channel: {
-          onCall: call.onCall,
-          callSeconds,
-          callerSaved: call.onCall && call.callerSaved,
-          screenCaptured: call.screenCaptured,
-          remoteControlApp: call.remoteControlApp,
-        },
-      })
-      setAnswers({})
-      if (result.holdId) setWatched(result.holdId)
-      else setPaid({ amount: value, payee: to })
+      showResult(await api.transfer({ payee: to, amount: value, duress: call.duress, channel: channelNow() }), value, to)
     })
 
   const releaseMyself = () =>
@@ -179,6 +183,7 @@ export function usePhoneSession() {
     },
     answers,
     busy,
+    transfers: { channelNow, duress: call.duress, showResult, refresh },
     actions: { send, releaseMyself, cancel, addCallersColleague, answer },
   }
 }

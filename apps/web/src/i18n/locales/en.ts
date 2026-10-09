@@ -138,6 +138,25 @@ export const en = {
   skip72: 'Skip 72 hours',
   openFamily: 'Open the family page',
   openStage: 'Open the stage',
+  // assistant
+  assistant: 'Assistant',
+  assistantSub: 'Pay a bill or check your balance by asking.',
+  assistantPlaceholder: 'Pay 260 to State Grid electricity',
+  assistantAsk: 'Ask',
+  assistantThinking: 'Thinking…',
+  assistantOffline: 'Offline',
+  assistantClaude: 'Claude',
+  draftFor: 'Ready to send',
+  draftConfirm: 'Confirm',
+  draftDismiss: 'Not now',
+  draftSent: 'Sent to the bank',
+  draftDismissed: 'Dismissed',
+  tellUs: 'Or tell us in your own words',
+  tellUsPlaceholder: 'What did the caller say?',
+  tellUsSend: 'Add to the note for your son',
+  noted: (n: number) =>
+    n > 0 ? `Thank you. ${n === 1 ? 'One warning sign' : `${n} warning signs`} added for your son.` : 'Thank you. The payment stays paused.',
+  familyNote: 'Summary for you',
 }
 
 export type Strings = typeof en

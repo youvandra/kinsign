@@ -5,6 +5,7 @@ import { ArrowButton, ArrowLink, Pill, Status } from '@/components/ui'
 import { useT } from '@/i18n'
 import { timeOf, yuan } from '@/lib/format'
 import { useEntrance } from '@/lib/hooks'
+import FamilyNote from './FamilyNote'
 import InterviewAnswers from './InterviewAnswers'
 import RiskMeter from './RiskMeter'
 import SharedRecord from './SharedRecord'
@@ -38,6 +39,7 @@ export default function HoldCard({ hold, busy, onBlock, onApprove }: { hold: Hol
         {t.to} <strong className="font-semibold text-ink">{hold.payee}</strong>
       </p>
 
+      <FamilyNote hold={hold} />
       <RiskMeter score={hold.score} t={t} />
       <SignalList signals={signalsOf(hold, t)} />
       <InterviewAnswers hold={hold} t={t} />
