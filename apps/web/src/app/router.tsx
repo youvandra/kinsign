@@ -11,7 +11,10 @@ export const routes: RouteObject[] = [
   {
     element: <RootLayout />,
     HydrateFallback: () => <div className="min-h-screen bg-ground" />,
-    children: [{ path: 'phone', lazy: page(() => import('@/features/phone/PhonePage')) }],
+    children: [
+      { path: 'phone', lazy: page(() => import('@/features/phone/PhonePage')) },
+      { path: 'family', lazy: page(() => import('@/features/family/FamilyPage')) },
+    ],
   },
 ]
 
