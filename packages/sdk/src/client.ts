@@ -5,6 +5,11 @@
 import {
   API,
   type AccountView,
+  type AssistantView,
+  type ChannelState,
+  type HoldSummary,
+  type InterviewReading,
+  type Lang,
   type ConfigView,
   type DemoLinks,
   type Hex,
@@ -61,6 +66,21 @@ export function createClient({ baseUrl = '', fetch: doFetch = globalThis.fetch.b
     issueRecord: (holdId: Hex, kind: RecordKind, by: Hex) => request<{ recordHash: Hex }>(API.record, { holdId, kind, by }),
     /** Files the record by the transaction's receipt and settles the money by the contract's state. */
     sync: (holdId: Hex, recordHash?: Hex, txHash?: Hex) => request<{ state: HoldState }>(API.sync, { holdId, recordHash, txHash }),
+
+    /** The customer's own words during a hold; the bank attests only the "yes" answers it reads. */
+    interviewText: (holdId: Hex, text: string) => request<InterviewReading>(API.interviewText, { holdId, text }),
+    /** The note a trusted person reads before deciding, in their language. Display text only. */
+    holdSummary: (holdId: Hex, lang: Lang) => request<HoldSummary>(API.familySummary, { holdId, lang }),
+
+    /** The payment assistant. It reads and drafts; a draft moves money only through `confirm`. */
+    assistant: {
+      mode: () => request<{ mode: AssistantView['mode'] }>(API.assistant),
+      chat: (text: string, conversationId?: string) => request<AssistantView>(API.assistantChat, { text, conversationId }),
+      /** The customer's tap on Confirm: the draft becomes a transfer under the same hold rule. */
+      confirm: (conversationId: string, draftId: string, channel: ChannelState, duress = false) =>
+        request<{ view: AssistantView; result: TransferResult }>(API.assistantConfirm, { conversationId, draftId, channel, duress }),
+      dismiss: (conversationId: string, draftId: string) => request<AssistantView>(API.assistantDismiss, { conversationId, draftId }),
+    },
 
     /** Current block, read through the API's RPC proxy. */
     async blockNumber(): Promise<number> {
