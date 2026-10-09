@@ -171,6 +171,106 @@ export interface HoldSummary {
   text: string
 }
 
+/** Spending categories the assistant reports on. */
+export type Category =
+  | 'income'
+  | 'housing'
+  | 'utilities'
+  | 'phone'
+  | 'groceries'
+  | 'health'
+  | 'education'
+  | 'family'
+  | 'dining'
+  | 'transport'
+  | 'savings'
+  | 'other'
+
+/** One line of the customer's statement. */
+export interface Txn {
+  id: string
+  at: number
+  payee: string
+  amount: number
+  direction: 'in' | 'out'
+  category: Category
+}
+
+export interface CategorySpend {
+  category: Category
+  amount: number
+  /** Average of the same category over the previous three months. */
+  average: number
+}
+
+export interface MonthSummary {
+  /** YYYY-MM */
+  month: string
+  income: number
+  spending: number
+  net: number
+  /** Net over income, 0 when there was no income. */
+  savingsRate: number
+  byCategory: CategorySpend[]
+  daysElapsed: number
+  daysInMonth: number
+}
+
+export type BillFlag = 'increased' | 'duplicate' | 'dueSoon'
+
+/** A payee she pays every month, found from the statement. */
+export interface BillView {
+  payee: string
+  category: Category
+  months: number
+  average: number
+  last: number
+  lastAt: number
+  nextDueAt: number
+  /** Last amount against the average of the earlier ones, e.g. 0.38 for +38%. */
+  change: number
+  flags: BillFlag[]
+}
+
+export interface BudgetLine {
+  category: Category
+  limit: number
+  spent: number
+  /** Spending at this month's pace by the end of the month. */
+  projected: number
+  status: 'ok' | 'watch' | 'over'
+}
+
+export type InsightKind = 'billIncrease' | 'duplicateCharge' | 'budgetPace' | 'categoryJump' | 'saveSurplus' | 'setBudget'
+
+/** Something she can act on, with the action prepared but never taken for her. */
+export type InsightAction = { kind: 'setBudget'; category: Category; limit: number } | { kind: 'draftTransfer'; payee: string; amount: number; note: string }
+
+export interface Insight {
+  id: string
+  kind: InsightKind
+  severity: 'act' | 'watch' | 'info'
+  title: string
+  detail: string
+  action?: InsightAction
+}
+
+export interface FinanceView {
+  asOf: number
+  lang: Lang
+  summary: MonthSummary
+  previous: MonthSummary
+  bills: BillView[]
+  budgets: BudgetLine[]
+  insights: Insight[]
+}
+
+export interface BudgetBody {
+  category: Category
+  /** 0 removes the budget. */
+  limit: number
+}
+
 /** Every API path in one place, so a typo is a type error on both sides. */
 export const API = {
   config: '/api/config',
@@ -191,5 +291,7 @@ export const API = {
   assistantDismiss: '/api/assistant/dismiss',
   interviewText: '/api/interview/text',
   familySummary: '/api/holds/summary',
+  finance: '/api/finance',
+  financeBudget: '/api/finance/budget',
   rpc: '/rpc',
 } as const

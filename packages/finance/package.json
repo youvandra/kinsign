@@ -1,0 +1,16 @@
+{
+  "name": "@kinsign/finance",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Budgets, bill analysis and spending insights from the customer's statement",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@kinsign/protocol": "*"
+  }
+}
