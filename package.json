@@ -18,7 +18,8 @@
     "format:check": "prettier --check .",
     "bench:scenarios": "npm run scenarios -w @kinsign/bench",
     "bench:population": "npm run population -w @kinsign/bench",
-    "bench:fate-export": "npm run fate:export -w @kinsign/bench"
+    "bench:fate-export": "npm run fate:export -w @kinsign/bench",
+    "bench:sandbox": "npm run sandbox -w @kinsign/bench"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

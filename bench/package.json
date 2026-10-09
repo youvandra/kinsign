@@ -7,11 +7,14 @@
     "scenarios": "tsx src/scenarios/run.ts",
     "population": "tsx src/population/run.ts",
     "fate:export": "tsx src/fate/export.ts",
-    "typecheck": "tsc -p ."
+    "typecheck": "tsc -p .",
+    "sandbox": "tsx src/sandbox/run.ts"
   },
   "dependencies": {
     "@kinsign/chain": "*",
     "@kinsign/core": "*",
+    "@kinsign/protocol": "*",
+    "@kinsign/sdk": "*",
     "viem": "2.57.3"
   }
 }
