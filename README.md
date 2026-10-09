@@ -5,6 +5,7 @@
 - **Release contract.** The trusted circle, its 72-hour timelock and every decision live in [`KinsignRelease`](contracts/src/KinsignRelease.sol), on a FISCO BCOS chain the bank shares with the mobile operator and the regulator.
 - **Federated score.** Bank and operator train one hold score with [FATE](https://github.com/FederatedAI/FATE) (PSI, then hetero SecureBoost), and neither reveals its data to the other.
 - **SDK.** [`@kinsign/sdk`](packages/sdk) gives banking and family apps a typed client, device keys and signed decisions.
+- **Assistant.** [`@kinsign/agent`](packages/agent) helps with everyday payments in three languages, reads the in-call interview from the customer's own words and writes the family note. It reads and drafts; the customer confirms every payment herself.
 
 Documentation lives in [`docs/`](docs) and is served by the web app at `/docs`.
 
@@ -19,15 +20,17 @@ kinsign/
 │   ├── protocol/     Wire types and API paths. Types only
 │   ├── core/         Domain: hold policy, ledger, salted records, engine. Pure
 │   ├── chain/        KinsignRelease client, anvil and FISCO BCOS networks
-│   └── sdk/          Client SDK: API client, devices, signed decisions
+│   ├── sdk/          Client SDK: API client, devices, signed decisions
+│   └── agent/        Payment assistant, interview reader, family note (Claude or offline)
 ├── bench/            Scenario corpus, population model, FATE export and evaluation
 ├── contracts/        KinsignRelease.sol with Foundry unit and invariant tests
 ├── federation/       FATE 2.2 job: PSI and hetero SecureBoost between bank and operator
 ├── infra/fisco/      Local four-node FISCO BCOS chain
+├── scripts/          setup.sh for a fresh checkout
 └── docs/             Documentation, in Markdown
 ```
 
-**Dependencies point one way.** `protocol` depends on nothing. `core`, `chain` and `sdk` depend on `protocol`. `api` and `bench` combine `core` and `chain`. `web` uses `sdk`. `core` reaches the contract only through `ReleaseLedgerPort`, which `chain` implements against the contract and the unit tests implement in memory.
+**Dependencies point one way.** `protocol` depends on nothing. `core`, `chain`, `sdk` and `agent` depend on `protocol`. `api` combines `core`, `chain` and `agent`; `bench` combines `core` and `chain`. `web` uses `sdk`. `core` reaches the contract only through `ReleaseLedgerPort`, which `chain` implements against the contract and the unit tests implement in memory.
 
 ## Guarantees and where they are checked
 
@@ -43,12 +46,11 @@ kinsign/
 
 ## Quick start
 
-Requirements: Node.js 22+ and [Foundry](https://getfoundry.sh).
+Requirements: Node.js 22+ and [Foundry](https://getfoundry.sh) (`scripts/setup.sh` installs it when missing).
 
 ```bash
-git clone --recurse-submodules git@github.com:youvandra/kinsign.git && cd kinsign
-npm install
-(cd contracts && forge build)
+git clone git@github.com:youvandra/kinsign.git && cd kinsign
+scripts/setup.sh
 
 npm run dev:api     # bank API on :8620, with its own local chain
 npm run dev:web     # http://localhost:5190
@@ -67,7 +69,7 @@ npm test                 # Vitest
 npm run bench:scenarios  # scenario corpus as real transactions
 ```
 
-CI runs all of them on every push.
+CI runs all of them on every push. [`CONTRIBUTING.md`](CONTRIBUTING.md) has the conventions.
 
 ## Results
 

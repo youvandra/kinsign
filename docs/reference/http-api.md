@@ -43,6 +43,19 @@ Returns `TransferResult`: `{ "action": "pay" | "hold", "holdId": "0x…" | null,
 
 `{ "holdId": "0x…", "recordHash": "0x…", "txHash": "0x…" }`. Files the record by the transaction's receipt (a refused transaction files it as refused) and settles the money by the contract. Returns `{ "state": "Released" }`.
 
+## Assistant
+
+| Method | Path | Body | Response |
+|---|---|---|---|
+| `GET` | `/api/assistant` |  | `{ "mode": "offline" \| "claude" }` |
+| `POST` | `/api/assistant/chat` | `{ "text", "conversationId"? }` | `AssistantView`: transcript and drafts |
+| `POST` | `/api/assistant/confirm` | `{ "conversationId", "draftId", "channel", "duress"? }` | `{ "view", "result": TransferResult }` |
+| `POST` | `/api/assistant/dismiss` | `{ "conversationId", "draftId" }` | `AssistantView` |
+| `POST` | `/api/interview/text` | `{ "holdId", "text" }` | `InterviewReading`: the "yes" answers and whether they were attested |
+| `POST` | `/api/holds/summary` | `{ "holdId", "lang": "en" \| "zh" \| "id" }` | `HoldSummary`: the family note |
+
+`confirm` is the customer's tap. It claims the draft first, so a second tap cannot send it twice, then runs the transfer through the hold rule with the given `channel`.
+
 ## Chain access
 
 ### `POST /rpc`

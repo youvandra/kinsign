@@ -49,6 +49,18 @@ await kinsign.interview(holdId, { toldToKeepSecret: true })
 
 Send only the answers that are "yes". The bank ignores everything else, because an answer can raise risk and never lower it.
 
+## The assistant
+
+```ts
+const view = await kinsign.assistant.chat('pay 260 to State Grid electricity')
+const draft = view.drafts[0]
+
+// The customer's tap. The draft goes through the hold rule with the phone's call state.
+const { result } = await kinsign.assistant.confirm(view.conversationId, draft.id, channel)
+```
+
+`kinsign.interviewText(holdId, text)` sends the customer's own words during a hold, and `kinsign.holdSummary(holdId, lang)` returns the family note. See [Payment assistant](/docs/concepts/assistant).
+
 ## Errors
 
 A response with an error status throws `ApiError`, with the server's reason as `message` and the HTTP status as `status`:
