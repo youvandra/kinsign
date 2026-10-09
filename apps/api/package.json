@@ -15,6 +15,7 @@
     "@kinsign/agent": "*",
     "@kinsign/chain": "*",
     "@kinsign/core": "*",
+    "@kinsign/finance": "*",
     "@kinsign/protocol": "*",
     "viem": "2.57.3"
   }

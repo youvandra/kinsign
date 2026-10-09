@@ -5,8 +5,8 @@ import { bank, reply, ScriptedModel, text, thinking, toolUse } from './fixtures.
 
 describe('tools', () => {
   it('read and draft only: nothing sends, releases, approves or changes the circle', () => {
-    expect(TOOL_NAMES).toEqual(['get_account', 'recent_payments', 'paused_payments', 'draft_transfer'])
-    for (const name of TOOL_NAMES) expect(name).not.toMatch(/send|release|approve|confirm|block|member|circle/)
+    expect(TOOL_NAMES).toEqual(['get_account', 'recent_payments', 'paused_payments', 'spending_summary', 'bills', 'budgets_and_tips', 'draft_transfer'])
+    for (const name of TOOL_NAMES) expect(name).not.toMatch(/send|release|approve|confirm|block|member|circle|set_/)
   })
 })
 
@@ -72,5 +72,36 @@ describe('assistant offline', () => {
     const { conversationId } = await a.chat(undefined, 'pay 320 to Electricity Co.')
     expect(a.settle(conversationId, 'd1', 'sent').state).toBe('sent')
     expect(() => a.settle(conversationId, 'd1', 'dismissed')).toThrow(/already sent/)
+  })
+})
+
+describe('personal finance', () => {
+  it('reads spending, bills and tips through tools and quotes them', async () => {
+    const model = new ScriptedModel([
+      reply([toolUse('t1', 'budgets_and_tips', {}), toolUse('t2', 'bills', {})], 'tool_use'),
+      reply([text('China Mobile charged you twice this month.')]),
+    ])
+    const a = new Assistant(bank(), model)
+    await a.chat(undefined, 'any advice for this month?')
+    const results = model.requests[1].messages.at(-1)!.content as { content: string }[]
+    const tips = JSON.parse(results[0].content)
+    expect(tips.tips[0]).toMatchObject({ severity: 'act', title: 'China Mobile charged you twice' })
+    const bills = JSON.parse(results[1].content)
+    expect(bills.find((b: { payee: string }) => b.payee === 'State Grid electricity')).toMatchObject({ usual: 260, latest: 360, flags: ['increased'] })
+  })
+
+  it('answers spending, bills and tips offline in three languages', async () => {
+    const a = new Assistant(bank(), null)
+    const last = async (t: string) => (await a.chat(undefined, t)).transcript.at(-1)!.text
+    expect(await last('how much did I spend this month?')).toContain('¥476')
+    expect(await last('any problem with my bills?')).toContain('China Mobile charged you twice')
+    expect(await last('tagihan saya bulan ini gimana?')).toContain('China Mobile menagih dua kali')
+    expect(await last('这个月有什么建议？')).toContain('China Mobile重复扣费')
+  })
+
+  it('never drafts from advice alone', async () => {
+    const a = new Assistant(bank(), null)
+    const view = await a.chat(undefined, 'give me tips to save money')
+    expect(view.drafts).toEqual([])
   })
 })

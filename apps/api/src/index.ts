@@ -17,6 +17,7 @@ import { serveApp } from './http/static.ts'
 import { assistantRoutes } from './routes/assistant.ts'
 import { bankRoutes } from './routes/bank.ts'
 import { demoRoutes } from './routes/demo.ts'
+import { financeRoutes } from './routes/finance.ts'
 import { recordRoutes } from './routes/records.ts'
 
 const network = await networkFromEnv(config.anvilPort)
@@ -26,6 +27,7 @@ const router = new Router()
 bankRoutes(router, bank)
 recordRoutes(router, bank)
 demoRoutes(router, bank)
+financeRoutes(router, bank)
 assistantRoutes(router, bank, openAssistant(bank))
 
 const server = createServer(async (req, res) => {

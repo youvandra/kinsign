@@ -4,6 +4,7 @@
  * browser only sees the plain transcript and the drafts.
  */
 import type { AssistantView, ChatLine, TransferDraft } from '@kinsign/protocol'
+import { categoryName } from '@kinsign/finance'
 import { guessLang } from './lang.ts'
 import { textOf, type MessageParam, type ModelPort, type ToolResult } from './model.ts'
 import { OFFLINE_REPLIES, offlineIntent } from './offline.ts'
@@ -111,7 +112,7 @@ export class Assistant {
       for (const block of res.content) {
         if (block.type !== 'tool_use') continue
         try {
-          const out = await runTool(block.name, block.input, { bank: this.bank, addDraft: this.addDraft(c) })
+          const out = await runTool(block.name, block.input, { bank: this.bank, lang: guessLang(text), addDraft: this.addDraft(c) })
           results.push({ type: 'tool_result', tool_use_id: block.id, content: JSON.stringify(out) })
         } catch (e) {
           const message = e instanceof ToolError ? e.message : 'the bank could not answer'
@@ -124,9 +125,35 @@ export class Assistant {
   }
 
   private async offlineTurn(c: Conversation, text: string): Promise<string> {
-    const replies = OFFLINE_REPLIES[guessLang(text)]
+    const lang = guessLang(text)
+    const replies = OFFLINE_REPLIES[lang]
     const intent = offlineIntent(text)
     switch (intent.kind) {
+      case 'spending': {
+        const { summary } = await this.bank.finance(lang)
+        const top = summary.byCategory[0]
+        return replies.spending(
+          this.formatMoney(summary.spending),
+          this.formatMoney(summary.net),
+          top ? `${categoryName(top.category, lang)} ${this.formatMoney(top.amount)}` : '',
+        )
+      }
+      case 'bills': {
+        const { bills, insights } = await this.bank.finance(lang)
+        const flagged = insights.filter((i) => i.kind === 'billIncrease' || i.kind === 'duplicateCharge').map((i) => i.title)
+        return replies.bills(String(bills.length), flagged.join('; '))
+      }
+      case 'tips': {
+        const { insights } = await this.bank.finance(lang)
+        return insights.length
+          ? replies.tips(
+              insights
+                .slice(0, 3)
+                .map((i, n) => `${n + 1}. ${i.title}. ${i.detail}`)
+                .join(' '),
+            )
+          : replies.noTips()
+      }
       case 'balance':
         return replies.balance(this.formatMoney((await this.bank.account()).balance))
       case 'draft': {

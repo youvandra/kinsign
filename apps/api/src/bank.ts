@@ -1,8 +1,9 @@
-import type { ChannelState, Hex, InterviewAnswers, TransferResult } from '@kinsign/protocol'
+import type { ChannelState, Hex, InterviewAnswers, TransferResult, Txn } from '@kinsign/protocol'
+import { categorize, type Budgets } from '@kinsign/finance'
 import { Engine, MockLedger, type Decision } from '@kinsign/core'
 import { fundOnFisco, ReleaseClient, type Network } from '@kinsign/chain'
 import { config } from './config.ts'
-import { addressOf, DEMO_CUSTOMER_ID, DEMO_KEYS, demoCustomer } from './demo.ts'
+import { addressOf, DEMO_CUSTOMER_ID, DEMO_KEYS, demoCustomer, demoStatement } from './demo.ts'
 
 /** What the bank remembers about a held transfer, beside what the contract holds. */
 export interface HoldMeta {
@@ -29,6 +30,9 @@ export class Bank {
   readonly engine: Engine
   readonly holds = new Map<Hex, HoldMeta>()
   readonly paid: PaidTransfer[] = []
+  /** Budgets the customer set herself. The assistant can suggest one, never set it. */
+  readonly budgets: Budgets = { dining: 400 }
+  private readonly opened = Date.now()
   private seq = 0
 
   private constructor(readonly chain: ReleaseClient) {
@@ -60,6 +64,15 @@ export class Bank {
     if (outcome.holdId) this.holds.set(outcome.holdId, { at: Date.now(), payee, amount, channel, decision })
     else this.paid.push({ at: Date.now(), payee, amount, id })
     return { action: decision.action, holdId: outcome.holdId ?? null, reasons: decision.reasons, score: decision.score }
+  }
+
+  /** Her statement: the seeded history, then every payment that left the ledger since the API started. */
+  statement(): Txn[] {
+    const seeded = demoStatement(this.opened)
+    const live: Txn[] = this.ledger.audit
+      .filter((e) => e.customer === DEMO_CUSTOMER_ID && (e.kind === 'paid' || e.kind === 'settled'))
+      .map((e) => ({ id: e.ref, at: e.at, payee: e.payee, amount: e.amount, direction: 'out', category: categorize(e.payee) }))
+    return [...seeded, ...live]
   }
 
   requireHold(holdId: Hex): HoldMeta {

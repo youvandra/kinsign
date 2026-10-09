@@ -1,4 +1,5 @@
-import type { AccountView, HoldView } from '@kinsign/protocol'
+import type { AccountView, HoldView, Txn } from '@kinsign/protocol'
+import { categorize, financeView } from '@kinsign/finance'
 import type { Message, ModelPort, ModelRequest } from '../src/model.ts'
 import type { BankReader } from '../src/tools.ts'
 
@@ -37,7 +38,34 @@ export const toolUse = (id: string, name: string, input: unknown) => ({ type: 't
 
 export const ACCOUNT: AccountView = { balance: 250_000, knownPayees: ['Electricity Co.'], reserved: 0, paid: [] }
 
-export const bank = (holds: HoldView[] = []): BankReader => ({ account: async () => ACCOUNT, holds: async () => holds })
+/** Two steady months, then this month: electricity up 38% and the phone charged twice. */
+export const ASOF = Date.parse('2026-10-10T09:00:00Z')
+const row = (date: string, payee: string, amount: number, direction: 'in' | 'out' = 'out'): Txn => ({
+  id: `${date}-${payee}`,
+  at: Date.parse(`${date}T09:00:00Z`),
+  payee,
+  amount,
+  direction,
+  category: categorize(payee, direction),
+})
+export const STATEMENT: Txn[] = [
+  ...['2026-08', '2026-09'].flatMap((m) => [
+    row(`${m}-01`, 'Pension', 6_800, 'in'),
+    row(`${m}-05`, 'State Grid electricity', 260),
+    row(`${m}-06`, 'China Mobile', 58),
+    row(`${m}-08`, 'Hema supermarket', 1_200),
+  ]),
+  row('2026-10-01', 'Pension', 6_800, 'in'),
+  row('2026-10-03', 'China Mobile', 58),
+  row('2026-10-05', 'State Grid electricity', 360),
+  row('2026-10-06', 'China Mobile', 58),
+]
+
+export const bank = (holds: HoldView[] = []): BankReader => ({
+  account: async () => ACCOUNT,
+  holds: async () => holds,
+  finance: async (lang) => financeView(STATEMENT, {}, ASOF, lang),
+})
 
 export const HOLD: HoldView = {
   holdId: '0x01',

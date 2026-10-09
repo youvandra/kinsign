@@ -6,6 +6,8 @@ import {
   API,
   type AccountView,
   type AssistantView,
+  type Category,
+  type FinanceView,
   type ChannelState,
   type HoldSummary,
   type InterviewReading,
@@ -71,6 +73,13 @@ export function createClient({ baseUrl = '', fetch: doFetch = globalThis.fetch.b
     interviewText: (holdId: Hex, text: string) => request<InterviewReading>(API.interviewText, { holdId, text }),
     /** The note a trusted person reads before deciding, in their language. Display text only. */
     holdSummary: (holdId: Hex, lang: Lang) => request<HoldSummary>(API.familySummary, { holdId, lang }),
+
+    /** Monthly summary, bills, budgets and ranked recommendations, written in `lang`. */
+    finance: {
+      view: (lang: Lang) => request<FinanceView>(API.finance, { lang }),
+      /** The customer's own budget for one everyday category; 0 removes it. */
+      setBudget: (category: Category, limit: number, lang: Lang) => request<FinanceView>(API.financeBudget, { category, limit, lang }),
+    },
 
     /** The payment assistant. It reads and drafts; a draft moves money only through `confirm`. */
     assistant: {
