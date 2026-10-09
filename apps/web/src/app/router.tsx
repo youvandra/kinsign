@@ -15,7 +15,10 @@ export const routes: RouteObject[] = [
     children: [
       {
         element: <SiteLayout />,
-        children: [{ index: true, lazy: page(() => import('@/features/landing/LandingPage')) }],
+        children: [
+          { index: true, lazy: page(() => import('@/features/landing/LandingPage')) },
+          { path: 'benchmarks', lazy: page(() => import('@/features/benchmarks/BenchmarksPage')) },
+        ],
       },
       {
         path: 'docs',
