@@ -12,12 +12,25 @@ It does three jobs:
 | Job | Where | What it produces |
 |---|---|---|
 | Everyday payments | The customer's phone | A reply and transfer drafts |
+| Budgets, bills and advice | The customer's phone | Spending summary, bill checks, budget status and ranked tips |
 | The in-call interview | The pause screen of a hold | "Yes" answers, attested on chain |
 | The family note | The trusted person's phone | A short summary in the reader's language |
 
 ## What the assistant can do
 
-The assistant has four tools: `get_account`, `recent_payments`, `paused_payments` and `draft_transfer`. Every one of them reads or drafts. Sending, releasing, approving and changing the trusted circle belong to people, and the assistant has no tool for any of them.
+The assistant has seven tools. Every one of them reads or drafts:
+
+| Tool | Reads or prepares |
+|---|---|
+| `get_account` | Balance, reserved amount, saved payees |
+| `recent_payments` | Payments that went through |
+| `paused_payments` | Holds and their reasons |
+| `spending_summary` | This month and last month, by category against the usual |
+| `bills` | Regular bills, with a rise or a double charge flagged |
+| `budgets_and_tips` | Budgets projected to month end, and ranked advice |
+| `draft_transfer` | A transfer for her to confirm; moves no money |
+
+ Sending, releasing, approving and changing the trusted circle belong to people, and the assistant has no tool for any of them.
 
 A draft becomes a transfer only when the customer presses **Confirm**. That tap sends it through the same hold rule as any other payment, with the phone's call state at that moment, so a payment the assistant drafted during a scam call is held like one she typed herself.
 

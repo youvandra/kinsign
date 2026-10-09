@@ -5,7 +5,7 @@
 - **Release contract.** The trusted circle, its 72-hour timelock and every decision live in [`KinsignRelease`](contracts/src/KinsignRelease.sol), on a FISCO BCOS chain the bank shares with the mobile operator and the regulator.
 - **Federated score.** Bank and operator train one hold score with [FATE](https://github.com/FederatedAI/FATE) (PSI, then hetero SecureBoost), and neither reveals its data to the other.
 - **SDK.** [`@kinsign/sdk`](packages/sdk) gives banking and family apps a typed client, device keys and signed decisions.
-- **Assistant.** [`@kinsign/agent`](packages/agent) helps with everyday payments in three languages, reads the in-call interview from the customer's own words and writes the family note. It reads and drafts; the customer confirms every payment herself.
+- **Assistant.** [`@kinsign/agent`](packages/agent) is the customer's personal finance assistant in three languages: monthly spending, bill checks, budgets and advice from [`@kinsign/finance`](packages/finance), and everyday payments. It also reads the in-call interview from the customer's own words and writes the family note. It reads and drafts; the customer confirms every payment and sets every budget herself.
 
 Documentation lives in [`docs/`](docs) and is served by the web app at `/docs`.
 
@@ -21,7 +21,8 @@ kinsign/
 │   ├── core/         Domain: hold policy, ledger, salted records, engine. Pure
 │   ├── chain/        KinsignRelease client, anvil and FISCO BCOS networks
 │   ├── sdk/          Client SDK: API client, devices, signed decisions
-│   └── agent/        Payment assistant, interview reader, family note (Claude or offline)
+│   ├── finance/      Monthly summary, bills, budgets and insights from the statement. Pure
+│   └── agent/        Personal finance assistant, interview reader, family note (Claude or offline)
 ├── bench/            Scenario corpus, population model, FATE export and evaluation
 ├── contracts/        KinsignRelease.sol with Foundry unit and invariant tests
 ├── federation/       FATE 2.2 job: PSI and hetero SecureBoost between bank and operator
@@ -30,7 +31,7 @@ kinsign/
 └── docs/             Documentation, in Markdown
 ```
 
-**Dependencies point one way.** `protocol` depends on nothing. `core`, `chain`, `sdk` and `agent` depend on `protocol`. `api` combines `core`, `chain` and `agent`; `bench` combines `core` and `chain`. `web` uses `sdk`. `core` reaches the contract only through `ReleaseLedgerPort`, which `chain` implements against the contract and the unit tests implement in memory.
+**Dependencies point one way.** `protocol` depends on nothing. `core`, `chain`, `sdk`, `finance` and `agent` depend on `protocol`; `agent` also reads `finance`. `api` combines `core`, `chain`, `finance` and `agent`; `bench` combines `core`, `chain` and `sdk`. `web` uses `sdk`. `core` reaches the contract only through `ReleaseLedgerPort`, which `chain` implements against the contract and the unit tests implement in memory.
 
 ## Guarantees and where they are checked
 
@@ -43,6 +44,8 @@ kinsign/
 | The record chain matches the disclosed records (I5) | contract, `core/records.ts` | `core/test/records.test.ts`, every scenario |
 | Money moves only by the contract's state | `core/engine.ts` | `core/test/engine.test.ts` |
 | The bank cannot decide for a device | device keys stay on the device (`sdk/device.ts`) | the API holds only the operator and reviewer keys |
+| The assistant reads and drafts, never sends or sets | its tool list (`agent/tools.ts`) | `agent/test/assistant.test.ts` |
+| Advice carries its evidence and acts only on her tap | `finance/insights.ts`, `api/routes/finance.ts` | `finance/test/finance.test.ts` |
 
 ## Quick start
 
@@ -67,6 +70,7 @@ npm run format:check     # Prettier
 npm test                 # Vitest
 (cd contracts && forge test)
 npm run bench:scenarios  # scenario corpus as real transactions
+npm run bench:sandbox    # one full session through the SDK, against a running API
 ```
 
 CI runs all of them on every push. [`CONTRIBUTING.md`](CONTRIBUTING.md) has the conventions.

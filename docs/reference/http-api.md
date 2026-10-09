@@ -56,6 +56,15 @@ Returns `TransferResult`: `{ "action": "pay" | "hold", "holdId": "0x…" | null,
 
 `confirm` is the customer's tap. It claims the draft first, so a second tap cannot send it twice, then runs the transfer through the hold rule with the given `channel`.
 
+## Budgets, bills and insights
+
+| Method | Path | Body | Response |
+|---|---|---|---|
+| `POST` | `/api/finance` | `{ "lang": "en" \| "zh" \| "id" }` | `FinanceView`: summary, previous month, bills, budgets, insights |
+| `POST` | `/api/finance/budget` | `{ "category", "limit", "lang" }` | `FinanceView` after the change; `limit` 0 removes the budget |
+
+`/api/finance/budget` is the customer's own tap. It accepts only everyday categories (`groceries`, `dining`, `transport`, `health`, `other`). See [Budgets, bills and insights](/docs/concepts/money).
+
 ## Chain access
 
 ### `POST /rpc`

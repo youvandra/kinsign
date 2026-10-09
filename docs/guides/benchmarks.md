@@ -5,7 +5,7 @@ description: The scenario corpus and the population model, and how to rerun them
 
 # Reproduce the benchmarks
 
-Two benchmarks measure Kinsign, and both write their outputs to `bench/results/`, which is committed so each published number has a file behind it.
+Two benchmarks measure Kinsign, and a sandbox run records one full session. All three write their outputs to `bench/results/`, which is committed so each published number has a file behind it.
 
 ## Scenario corpus
 
@@ -34,3 +34,15 @@ A money-weighted model of one million customers over one year. Every defence run
 | Break-even friction | Friction per hold at which net benefit reaches zero |
 
 Every parameter lives in `bench/src/population/params.ts`. Most are assumptions, so the sweeps over victim resistance, circle reliability and cost levels are part of the result.
+
+## Sandbox operation log
+
+```bash
+npm run dev:api                                                # in one terminal
+npm run bench:sandbox                                          # writes sandbox-anvil.{jsonl,md}
+
+KINSIGN_RPC=http://127.0.0.1:8545 PORT=8621 npm run dev:api     # FISCO BCOS
+KINSIGN_API=http://localhost:8621 npm run bench:sandbox         # writes sandbox-fisco.{jsonl,md}
+```
+
+Drives a running bank API through `@kinsign/sdk`, the way the two phones do: the monthly summary and tips, a budget the customer sets, a bill paid through the assistant, a second tap on Confirm, a coached request on a scam call, the customer's own transfer held, her attempt to release it refused on chain, her son's block, and a rent payment on a call that her son releases. Every step is logged with its answer and, for decisions, the transaction hash.

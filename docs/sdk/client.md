@@ -61,6 +61,16 @@ const { result } = await kinsign.assistant.confirm(view.conversationId, draft.id
 
 `kinsign.interviewText(holdId, text)` sends the customer's own words during a hold, and `kinsign.holdSummary(holdId, lang)` returns the family note. See [Payment assistant](/docs/concepts/assistant).
 
+## Budgets, bills and insights
+
+```ts
+const money = await kinsign.finance.view('en')
+money.insights[0] // { kind: 'duplicateCharge', severity: 'act', title: 'China Mobile charged you twice', … }
+
+// The customer's tap on a suggested budget.
+await kinsign.finance.setBudget('groceries', 1_600, 'en')
+```
+
 ## Errors
 
 A response with an error status throws `ApiError`, with the server's reason as `message` and the HTTP status as `status`:
