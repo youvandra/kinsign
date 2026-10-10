@@ -13,6 +13,32 @@ function setup() {
 }
 
 describe('Engine', () => {
+  it('adds up what she paid during this call and holds the payment that passes the cap', async () => {
+    let now = 0
+    const ledger = new MockLedger(() => now)
+    ledger.add(customer())
+    const engine = new Engine(ledger, new FakeReleaseLedger(), OPERATOR)
+    // Three payments to a known payee during one 30-minute call: 1,800 each, under three times her norm.
+    now = 10 * 60_000
+    expect((await engine.request(request({ id: 'a', amount: 1_800, channel: callFor(10) }))).holdId).toBeUndefined()
+    now = 20 * 60_000
+    expect((await engine.request(request({ id: 'b', amount: 1_800, channel: callFor(20) }))).holdId).toBeUndefined()
+    now = 30 * 60_000
+    const third = await engine.request(request({ id: 'c', amount: 1_800, channel: callFor(30) }))
+    expect(third.holdId).toBe(holdIdOf('c'))
+    expect(third.decision.reasons).toContain('3,600 already sent during this call')
+  })
+
+  it('counts only payments made since the call began', async () => {
+    let now = 0
+    const ledger = new MockLedger(() => now)
+    ledger.add(customer())
+    const engine = new Engine(ledger, new FakeReleaseLedger(), OPERATOR)
+    await engine.request(request({ id: 'before', amount: 4_000 }))
+    now = 60 * 60_000
+    expect((await engine.request(request({ id: 'during', amount: 1_800, channel: callFor(5) }))).holdId).toBeUndefined()
+  })
+
   it('pays at once when the policy says pay, without touching the contract', async () => {
     const { engine, release, ledger } = setup()
     const out = await engine.request(request({ channel: callFor(5) }))

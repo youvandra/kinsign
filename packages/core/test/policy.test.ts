@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { DURESS_REASON, decide, features, interviewBoost, norm, triggered } from '../src/index.ts'
+import { DURESS_REASON, decide, features, inAfterCallWindow, interviewBoost, norm, triggered } from '../src/index.ts'
 import { callFor, customer, NO_CALL, request } from './fixtures.ts'
 
 describe('norm', () => {
@@ -66,5 +66,51 @@ describe('interview ratchet (I3)', () => {
     const honest = decide(customer(), { ...base, interview: { toldToKeepSecret: true } }).score
     expect(coached).toBe(plain)
     expect(honest).toBeGreaterThan(plain)
+  })
+})
+
+describe('after-call window', () => {
+  const after = (endedMinutesAgo: number, minutes = 20, callerSaved = false) => ({
+    ...NO_CALL,
+    lastCall: { endedSecondsAgo: endedMinutesAgo * 60, seconds: minutes * 60, callerSaved },
+  })
+
+  it('holds a new payee paid straight after a long call from an unsaved number', () => {
+    const d = decide(customer(), request({ payee: 'stranger', amount: 5_000, channel: after(4) }))
+    expect(d.action).toBe('hold')
+    expect(d.features.afterCall).toBe(true)
+    expect(d.reasons).toContain('a 20-min call ended 4 min ago')
+  })
+
+  it('closes after the window, for short calls and for saved callers', () => {
+    expect(decide(customer(), request({ payee: 'stranger', amount: 5_000, channel: after(31) })).action).toBe('pay')
+    expect(decide(customer(), request({ payee: 'stranger', amount: 5_000, channel: after(4, 3) })).action).toBe('pay')
+    expect(decide(customer(), request({ payee: 'stranger', amount: 5_000, channel: after(4, 20, true) })).action).toBe('pay')
+  })
+
+  it('leaves everyday payments alone after a call', () => {
+    expect(decide(customer(), request({ channel: after(4) })).action).toBe('pay')
+  })
+
+  it('stays an input the phone reports only when no call is live', () => {
+    expect(inAfterCallWindow({ ...callFor(5), lastCall: { endedSecondsAgo: 60, seconds: 1200, callerSaved: false } })).toBe(false)
+  })
+})
+
+describe('channel cap', () => {
+  it('holds a known payee once what she paid during the call passes five times her norm', () => {
+    const d = decide(customer(), request({ amount: 2_000, channel: callFor(30), paidOnChannel: 3_500 }))
+    expect(d.features.overChannelCap).toBe(true)
+    expect(d.action).toBe('hold')
+    expect(d.reasons).toContain('3,500 already sent during this call')
+  })
+
+  it('lets the first payment and small totals through', () => {
+    expect(decide(customer(), request({ amount: 2_000, channel: callFor(30) })).action).toBe('pay')
+    expect(decide(customer(), request({ amount: 1_000, channel: callFor(30), paidOnChannel: 1_000 })).action).toBe('pay')
+  })
+
+  it('applies only on a channel', () => {
+    expect(decide(customer(), request({ amount: 2_000, paidOnChannel: 9_000 })).action).toBe('pay')
   })
 })

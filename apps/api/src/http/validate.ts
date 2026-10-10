@@ -1,4 +1,4 @@
-import type { ChannelState, Hex, InterviewAnswers, Lang } from '@kinsign/protocol'
+import type { ChannelState, Hex, InterviewAnswers, Lang, LastCall } from '@kinsign/protocol'
 import { HttpError } from './router.ts'
 
 type Obj = Record<string, unknown>
@@ -45,6 +45,16 @@ export function channel(value: unknown): ChannelState {
     callerSaved: onCall && boolean(c, 'callerSaved'),
     screenCaptured: boolean(c, 'screenCaptured'),
     remoteControlApp: boolean(c, 'remoteControlApp'),
+    ...(onCall || c.lastCall === undefined || c.lastCall === null ? {} : { lastCall: lastCall(c.lastCall) }),
+  }
+}
+
+function lastCall(value: unknown): LastCall {
+  const l = object(value, 'lastCall')
+  return {
+    endedSecondsAgo: number(l, 'endedSecondsAgo', { min: 0, max: 86_400 * 30 }),
+    seconds: number(l, 'seconds', { min: 0, max: 86_400 }),
+    callerSaved: boolean(l, 'callerSaved'),
   }
 }
 

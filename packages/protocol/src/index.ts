@@ -22,6 +22,14 @@ export interface ChannelState {
   callerSaved: boolean
   screenCaptured: boolean
   remoteControlApp: boolean
+  /** The phone's last call, when none is live: a scammer can hang up and ask her to pay straight after. */
+  lastCall?: LastCall
+}
+
+export interface LastCall {
+  endedSecondsAgo: number
+  seconds: number
+  callerSaved: boolean
 }
 
 /** On-screen answers during a call. They can only raise risk (invariant I3). */

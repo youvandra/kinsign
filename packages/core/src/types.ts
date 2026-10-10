@@ -11,14 +11,22 @@ export interface TransferRequest {
   duress?: boolean
   /** On-screen answers during a call; they can only raise risk (I3). */
   interview?: InterviewAnswers
+  /** Set by the bank: what she already paid during this call or its after-call window. */
+  paidOnChannel?: number
 }
 
 export interface Features {
   onChannel: boolean
+  /** No call is live, but a long call from an unsaved number ended moments ago. */
+  afterCall: boolean
   newPayee: boolean
   /** Amount divided by the customer's recent median. */
   amountRatio: number
   aboveNorm: boolean
+  /** Paid on this channel so far plus this transfer, over the customer's norm. */
+  channelRatio: number
+  /** The channel's running total passed its cap: many small payments add up. */
+  overChannelCap: boolean
   flaggedPayee: boolean
   callSeconds: number
   screenCaptured: boolean

@@ -49,9 +49,13 @@ export class MockLedger {
     return total
   }
 
-  pay(customer: string, payee: string, amount: number, ref: string): void {
+  /**
+   * Pays at once. `learn` false keeps the amount out of her norm: a payment
+   * made while a caller is on the line must not teach the bank what is usual.
+   */
+  pay(customer: string, payee: string, amount: number, ref: string, learn = true): void {
     this.debit(customer, amount)
-    this.remember(customer, payee, amount)
+    if (learn) this.remember(customer, payee, amount)
     this.log('paid', customer, payee, amount, ref)
   }
 
@@ -72,6 +76,16 @@ export class MockLedger {
     const r = this.take(ref)
     this.get(r.customer).balance += r.amount
     this.log('refunded', r.customer, r.payee, r.amount, ref)
+  }
+
+  /** What a customer paid at once (never through a hold) since `since`, in ledger time. */
+  paidSince(customer: string, since: number): number {
+    return this.audit.filter((e) => e.kind === 'paid' && e.customer === customer && e.at >= since).reduce((sum, e) => sum + e.amount, 0)
+  }
+
+  /** The ledger's clock, so callers measure windows on the same time base. */
+  clockNow(): number {
+    return this.now()
   }
 
   /** Total that actually left the bank to a payee. */

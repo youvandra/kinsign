@@ -2,7 +2,7 @@ import type { Hex, HoldState, TxResult } from '@kinsign/protocol'
 import { encodeAbiParameters, keccak256, toHex } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 import type { MockLedger } from './ledger.ts'
-import { CORE_POLICY, decide, type PolicyConfig } from './policy.ts'
+import { channelStartedSecondsAgo, CORE_POLICY, decide, type PolicyConfig } from './policy.ts'
 import { RecordStore, type DecisionRecord } from './records.ts'
 import type { Decision, ReleaseLedgerPort, TransferRequest } from './types.ts'
 
@@ -50,11 +50,15 @@ export class Engine {
     return this.transfers.get(holdId)
   }
 
-  async request(t: TransferRequest): Promise<Outcome> {
-    const customer = this.ledger.get(t.customer)
+  async request(req: TransferRequest): Promise<Outcome> {
+    const customer = this.ledger.get(req.customer)
+    // What she already paid on this channel: many small payments to known payees add up.
+    const started = channelStartedSecondsAgo(req.channel, this.policy)
+    const paidOnChannel = started === null ? 0 : this.ledger.paidSince(req.customer, this.ledger.clockNow() - started * 1000)
+    const t: TransferRequest = { ...req, paidOnChannel }
     const decision = decide(customer, t, this.flagged, this.policy)
     if (decision.action === 'pay') {
-      this.ledger.pay(t.customer, t.payee, t.amount, t.id)
+      this.ledger.pay(t.customer, t.payee, t.amount, t.id, !decision.features.onChannel)
       return { transferId: t.id, decision }
     }
     const holdId = holdIdOf(t.id)

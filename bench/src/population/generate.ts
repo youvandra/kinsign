@@ -117,9 +117,13 @@ export function generatePopulation(seed = POPULATION_SEED): Population {
     const callerSaved = onCall && rng.bern(newPayee ? 0.35 : L.callerSavedGivenCall)
     const f: Features = {
       onChannel: onCall || screenCaptured || remoteControlApp,
+      // The population model draws no after-call payments or call totals: it stays a lower bound for those two rules.
+      afterCall: false,
       newPayee,
       amountRatio: amount / norm,
       aboveNorm: amount / norm > 3,
+      channelRatio: amount / norm,
+      overChannelCap: false,
       flaggedPayee,
       callSeconds: minutes * 60,
       screenCaptured,
@@ -143,9 +147,12 @@ export function generatePopulation(seed = POPULATION_SEED): Population {
     const callerSaved = onCall && rng.bern(POP.scamCallerSaved)
     const f: Features = {
       onChannel: onCall || screen || remote,
+      afterCall: false,
       newPayee,
       amountRatio: amount / norm,
       aboveNorm: amount / norm > 3,
+      channelRatio: amount / norm,
+      overChannelCap: false,
       flaggedPayee,
       callSeconds,
       screenCaptured: screen,
