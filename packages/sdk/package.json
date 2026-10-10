@@ -2,6 +2,7 @@
   "name": "@kinsign/sdk",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "description": "Client SDK for Kinsign: the bank API client, device keys and signed release decisions",
   "type": "module",
   "exports": {

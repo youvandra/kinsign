@@ -2,6 +2,7 @@
   "name": "@kinsign/finance",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "description": "Budgets, bill analysis and spending insights from the customer's statement",
   "type": "module",
   "exports": {

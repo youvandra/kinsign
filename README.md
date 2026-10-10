@@ -12,6 +12,7 @@
 [![FISCO BCOS](https://img.shields.io/badge/FISCO%20BCOS-3.16.4-F26522)](docs/guides/fisco-bcos.md)
 [![FATE](https://img.shields.io/badge/FATE-2.2%20PSI%20%2B%20SecureBoost-F26522)](federation)
 [![Scenarios](https://img.shields.io/badge/scenarios-162%2F162%2C%20%C2%A50%20lost-111827)](bench/results)
+[![Licence](https://img.shields.io/badge/licence-MIT-blue)](LICENSE)
 
 | | |
 |---|---|
@@ -455,4 +456,4 @@ All data in this repository is synthetic and labelled as such.
 
 ## Licence
 
-Copyright © 2026 the Kinsign authors. All rights reserved.
+[MIT](LICENSE). The Solidity sources carry `SPDX-License-Identifier: MIT`.

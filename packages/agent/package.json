@@ -2,6 +2,7 @@
   "name": "@kinsign/agent",
   "private": true,
   "version": "0.1.0",
+  "license": "MIT",
   "description": "The customer's payment assistant, the in-call interview reader and the family summary",
   "type": "module",
   "exports": {
