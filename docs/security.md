@@ -55,7 +55,7 @@ Each actor holds exactly the authority its role needs. The tiers are enforced by
 | 8 | Demo device keys are derived from fixed labels and handed out in a URL fragment | Demo only | In a deployment each device generates its own key and only the address is enrolled (`generateKey`) |
 | 9 | The federated lift comes from synthetic data | Open | Reported under a strong and a weak operator setting; H3 fails under the weak one. A pilot must measure it |
 | 10 | All four FISCO BCOS nodes run on one machine | Demo only | The shared record gives assurance only when parties with different interests run the nodes |
-| 11 | Call state comes from a toggle in the web demo | Open | The native iOS app reads `CXCallObserver` and screen capture; it is in progress |
+| 11 | Call state comes from a toggle in the web demo | Open | A native iOS app reading `CXCallObserver` and screen capture is the next build; the web demo reports the same fields |
 | 12 | Statement, budgets and conversations live in memory | Demo only | Lost on restart; a deployment reads the bank's core ledger |
 | 13 | The live score query tells the operator a risky transfer is under way | Mitigation designed | Batched queries with dummy requests, or operator-pushed scores for long calls |
 | 14 | Record hashes on chain cover low-entropy values | Closed | Every record is salted; the salt stays with the bank for disclosure |
