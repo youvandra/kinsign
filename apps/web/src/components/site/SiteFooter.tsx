@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import { FOOTER_COLUMNS } from './links'
-import { LogoMark } from '@/components/ui'
+import { Wordmark } from '@/components/ui'
 
 export default function SiteFooter() {
   return (
@@ -9,8 +9,8 @@ export default function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <div className="flex items-center gap-3">
-              <LogoMark className="h-10 w-10 ring-1 ring-white/15" />
-              <span className="text-[18px] font-semibold">Kinsign · 亲签</span>
+              <Wordmark className="h-9" dark />
+              <span className="text-[20px] text-white/60">亲签</span>
             </div>
             <p className="mt-5 max-w-[38ch] text-[15px] leading-[1.6] text-white/60">
               A release layer for payments made under pressure. Everyday payments go straight through; the rest wait for someone you trust.
@@ -40,9 +40,13 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="mt-16 flex flex-wrap items-end justify-between gap-6 border-t border-white/10 pt-8">
-          <p className="select-none text-[clamp(3.5rem,14vw,11rem)] font-semibold leading-[0.8] tracking-[-0.06em] text-white/[0.07]" aria-hidden="true">
-            Kinsign
-          </p>
+          <img
+            src="/brand/kinsign-logo-white.png"
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="h-[clamp(4rem,14vw,11rem)] w-auto select-none opacity-[0.07]"
+          />
           <p className="text-[13px] text-white/40">© 2026 Kinsign</p>
         </div>
       </div>

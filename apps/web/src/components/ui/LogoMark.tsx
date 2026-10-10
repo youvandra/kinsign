@@ -1,11 +1,16 @@
-/** The mark (two overlapping signatures) and the wordmark. */
-export default function LogoMark({ className = 'h-9 w-9' }: { className?: string }) {
+/** The mark: the orange "k" on its own, for square spots such as avatars and the favicon. */
+export default function LogoMark({ className = 'h-9 w-9', tone = 'orange' }: { className?: string; tone?: 'orange' | 'ink' | 'white' }) {
+  const src = tone === 'orange' ? '/brand/kinsign-mark.png' : `/brand/kinsign-mark-${tone}.png`
   return (
-    <span className={`relative grid shrink-0 place-items-center rounded-full bg-ink ${className}`} aria-hidden="true">
-      <svg viewBox="0 0 24 24" className="h-[55%] w-[55%]" fill="none" strokeWidth="2.4" strokeLinecap="round">
-        <circle cx="9" cy="12" r="5.5" stroke="white" />
-        <circle cx="15" cy="12" r="5.5" stroke="#F26522" />
-      </svg>
+    <span className={`grid shrink-0 place-items-center ${className}`} aria-hidden="true">
+      <img src={src} alt="" className="h-[86%] w-auto" draggable={false} />
     </span>
+  )
+}
+
+/** The full logo: the mark as the "k", then "insign". `dark` picks the white wordmark for ink grounds. */
+export function Wordmark({ className = 'h-7', dark = false }: { className?: string; dark?: boolean }) {
+  return (
+    <img src={dark ? '/brand/kinsign-logo-white.png' : '/brand/kinsign-logo.png'} alt="Kinsign" className={`w-auto shrink-0 ${className}`} draggable={false} />
   )
 }

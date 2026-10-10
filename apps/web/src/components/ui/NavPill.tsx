@@ -1,7 +1,7 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { ArrowLink } from './ArrowButton'
-import LogoMark from './LogoMark'
+import { Wordmark } from './LogoMark'
 
 export interface NavLink {
   label: string
@@ -37,9 +37,9 @@ export default function NavPill({
       <div className="mx-auto max-w-[1440px] p-2 sm:p-3">
         <div className="flex items-center justify-between gap-3 rounded-full bg-white p-[5px]">
           <div className="flex min-w-0 items-center gap-6">
-            <a href="/" className="flex min-w-0 items-center gap-3" aria-label="Kinsign home">
-              <LogoMark className="h-9 w-9 sm:h-10 sm:w-10" />
-              <span className="truncate pr-1 text-[14px] font-medium">Kinsign {title && <span className="ml-1 font-normal text-gray-500">{title}</span>}</span>
+            <a href="/" className="flex min-w-0 items-center gap-3 pl-3" aria-label="Kinsign home">
+              <Wordmark className="h-[26px] sm:h-[28px]" />
+              {title && <span className="truncate pr-1 text-[14px] text-gray-500">{title}</span>}
             </a>
             {links.length > 0 && (
               <nav className="hidden items-center gap-6 md:flex">
