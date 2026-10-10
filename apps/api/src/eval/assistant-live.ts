@@ -15,7 +15,12 @@ import type { AccountView, HoldView, InterviewAnswers, TransferDraft } from '@ki
 import { demoCustomer, demoStatement } from '../demo.ts'
 
 const RESULTS = new URL('../../../../bench/results/', import.meta.url)
-const PRICE = { input: 4, output: 20, cacheRead: 0.2, cacheWrite: 5 } // USD per million tokens, claude-opus-5-5
+// USD per million tokens at Anthropic list prices, by model.
+const PRICES: Record<string, { input: number; output: number; cacheRead: number; cacheWrite: number }> = {
+  'claude-opus-5-5': { input: 4, output: 20, cacheRead: 0.2, cacheWrite: 5 },
+  'claude-opus-4-6': { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 },
+  'claude-sonnet-4-6': { input: 3, output: 15, cacheRead: 0.3, cacheWrite: 3.75 },
+}
 
 /** Wraps the model to count tokens and the tools it called. */
 class Metered implements ModelPort {
@@ -43,6 +48,7 @@ class Metered implements ModelPort {
   }
   cost() {
     const u = this.usage
+    const PRICE = PRICES[this.name] ?? PRICES['claude-opus-5-5']!
     return (u.input * PRICE.input + u.output * PRICE.output + u.cacheRead * PRICE.cacheRead + u.cacheWrite * PRICE.cacheWrite) / 1e6
   }
 }
@@ -53,7 +59,10 @@ const statement = demoStatement(asOf)
 const account: AccountView = { balance: customer.balance, knownPayees: [...customer.knownPayees], reserved: 0, paid: [] }
 const bank: BankReader = { account: async () => account, holds: async () => [], finance: async (lang) => financeView(statement, { dining: 400 }, asOf, lang) }
 
-const model = new Metered(new ClaudeModel())
+// A local, git-ignored model can stand in for the Claude API (src/eval/local/model.ts).
+const LOCAL = './local/model.ts'
+const local = process.env.LOCAL_MODEL_ID ? ((await import(LOCAL).catch(() => null)) as { LocalModel: new () => ModelPort } | null) : null
+const model = new Metered(local ? new local.LocalModel() : new ClaudeModel())
 
 interface ChatCase {
   id: string

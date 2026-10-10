@@ -17,3 +17,6 @@ federation/data/
 
 # Local FISCO BCOS chain: downloaded binaries, console and node data
 infra/fisco/build
+
+# Local-only model adapters and their settings
+apps/api/src/eval/local/
