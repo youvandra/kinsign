@@ -42,6 +42,8 @@ export function usePhoneSession() {
 
   const [call, setCall] = useState<CallState>(NO_CALL)
   const [callSince, setCallSince] = useState<number | null>(null)
+  /** The call that just ended, so a payment straight after it is judged like one made during it. */
+  const [lastCall, setLastCall] = useState<{ endedAt: number; seconds: number; callerSaved: boolean } | null>(null)
   const [payee, setPayee] = useState('')
   const [amount, setAmount] = useState('')
   /** A payment that went through and has not been dismissed. */
@@ -52,16 +54,23 @@ export function usePhoneSession() {
   const [answers, setAnswers] = useState<Answers>({})
   const [busy, setBusy] = useState<PhoneAction | null>(null)
 
-  const applyCall = useCallback((c: CallState) => {
-    setCall(c)
-    setCallSince(c.onCall ? Date.now() - c.minutes * MINUTE : null)
-  }, [])
+  /** `fresh` starts a new scene, which forgets the previous call. */
+  const applyCall = useCallback(
+    (c: CallState, fresh = false) => {
+      if (fresh) setLastCall(null)
+      else if (call.onCall && !c.onCall && callSince)
+        setLastCall({ endedAt: Date.now(), seconds: Math.round((Date.now() - callSince) / 1000), callerSaved: call.callerSaved })
+      setCall(c)
+      setCallSince(c.onCall ? Date.now() - c.minutes * MINUTE : null)
+    },
+    [call, callSince],
+  )
 
   const post = useSceneChannel((m) => {
     if (m.type === 'scene') {
       setPayee(m.payee)
       setAmount(String(m.amount))
-      applyCall(m.call)
+      applyCall(m.call, true)
       setPaid(null)
       setDismissed(watched)
     } else if (m.type === 'call') {
@@ -114,8 +123,11 @@ export function usePhoneSession() {
       callerSaved: call.onCall && call.callerSaved,
       screenCaptured: call.screenCaptured,
       remoteControlApp: call.remoteControlApp,
+      ...(!call.onCall && lastCall
+        ? { lastCall: { endedSecondsAgo: Math.round((Date.now() - lastCall.endedAt) / 1000), seconds: lastCall.seconds, callerSaved: lastCall.callerSaved } }
+        : {}),
     }),
-    [call, callSince],
+    [call, callSince, lastCall],
   )
 
   /** A transfer the bank answered: follow its hold, or show the receipt. */

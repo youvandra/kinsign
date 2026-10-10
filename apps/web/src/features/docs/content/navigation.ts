@@ -9,7 +9,10 @@ export interface NavSection {
 
 export const NAVIGATION: NavSection[] = [
   { title: 'Getting started', pages: ['introduction', 'quickstart'] },
-  { title: 'Concepts', pages: ['concepts/holds', 'concepts/trusted-circle', 'concepts/release-record', 'concepts/risk-score', 'concepts/assistant', 'concepts/money'] },
+  {
+    title: 'Concepts',
+    pages: ['concepts/holds', 'concepts/trusted-circle', 'concepts/release-record', 'concepts/risk-score', 'concepts/assistant', 'concepts/money'],
+  },
   { title: 'SDK', pages: ['sdk/overview', 'sdk/client', 'sdk/devices', 'sdk/signing'] },
   { title: 'Reference', pages: ['reference/http-api', 'reference/contract'] },
   { title: 'Guides', pages: ['guides/fisco-bcos', 'guides/federation', 'guides/benchmarks'] },
