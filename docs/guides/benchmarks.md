@@ -46,3 +46,12 @@ KINSIGN_API=http://localhost:8621 npm run bench:sandbox         # writes sandbox
 ```
 
 Drives a running bank API through `@kinsign/sdk`, the way the two phones do: the monthly summary and tips, a budget the customer sets, a bill paid through the assistant, a second tap on Confirm, a coached request on a scam call, the customer's own transfer held, her attempt to release it refused on chain, her son's block, and a rent payment on a call that her son releases. Every step is logged with its answer and, for decisions, the transaction hash.
+
+## Live assistant run
+
+```bash
+npm run eval:assistant -w @kinsign/api      # billed: calls a live model
+```
+
+Nineteen cases in Chinese, English and Indonesian: spending, bills and advice, payments, scam requests, prompt injection, the interview reader and the family note. Every check is code, never the model: which drafts exist, which tools ran, and whether the reply warns, stays in the customer's language, and claims no action the assistant cannot take. The run writes `bench/results/assistant-live.{json,md}` with the model, every reply and the token count.
+
