@@ -11,10 +11,12 @@ A hold reserves the money of one transfer until someone outside the call decides
 
 The hold rule in `@kinsign/core` holds a transfer when two things are true at the moment it is sent:
 
-1. **A coercion channel is live.** The phone reports an active call, screen capture, or a remote-control app.
-2. **The transfer carries a risky feature.** The payee is new, the amount is above three times the customer's usual payment, or the payee account is flagged.
+1. **A coercion channel is live.** The phone reports an active call, screen capture, or a remote-control app. The channel also stays open for **30 minutes after a call of 5 minutes or more from a number outside her contacts**, because a coached customer is often told to hang up first and pay straight after.
+2. **The transfer carries a risky feature.** The payee is new, the amount is above three times the customer's usual payment, the payee account is flagged, or **everything she has paid on this channel, this transfer included, passes five times her usual payment**, so many small payments to known payees cannot add up unnoticed.
 
 Everything else is paid at once. A large payment to a known payee with no call in progress goes straight through, and so does a small payment during a call.
+
+Payments made while a channel is open never enter her usual amount. A caller cannot raise the bar by having her make a few payments first.
 
 ```ts
 import { CORE_POLICY, decide } from '@kinsign/core'
@@ -22,6 +24,14 @@ import { CORE_POLICY, decide } from '@kinsign/core'
 const decision = decide(customer, request, flaggedPayees, CORE_POLICY)
 // { action: 'hold', score: 0.93, reasons: ['on a call for 14 min', 'new payee', 'amount 40.0x the usual'] }
 ```
+
+| Setting | `CORE_POLICY` | Meaning |
+|---|---|---|
+| `normMultiple` | 3 | A single transfer above this multiple of her usual payment is unusual |
+| `afterCallSeconds` | 1,800 | How long the channel stays open after a call |
+| `afterCallMinSeconds` | 300 | Shorter calls do not open the after-call window |
+| `channelCapMultiple` | 5 | What she may pay on one channel, as a multiple of her usual payment |
+| `holdThreshold` | 0 | Score at or above which a triggered transfer is held |
 
 ## The score
 

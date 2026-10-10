@@ -31,6 +31,13 @@ The bank API speaks JSON over HTTP. Paths are defined once in `@kinsign/protocol
 
 Returns `TransferResult`: `{ "action": "pay" | "hold", "holdId": "0x…" | null, "reasons": [...], "score": 0.93 }`. `amount` is between 1 and 10,000,000.
 
+When no call is live, the phone may add the call that just ended, which keeps the channel open for 30 minutes after a long call from an unknown number:
+
+```json
+"channel": { "onCall": false, "callSeconds": 0, "callerSaved": false, "screenCaptured": false, "remoteControlApp": false,
+             "lastCall": { "endedSecondsAgo": 180, "seconds": 2400, "callerSaved": false } }
+```
+
 ### `POST /api/interview`
 
 `{ "holdId": "0x…", "answers": { "toldToKeepSecret": true } }`. Only `true` answers are kept and attested on chain.
