@@ -46,9 +46,11 @@ class Metered implements ModelPort {
     this.tools = []
     return t
   }
-  cost() {
+  /** Null when the model has no known list price: the report then shows tokens only. */
+  cost(): number | null {
     const u = this.usage
-    const PRICE = PRICES[this.name] ?? PRICES['claude-opus-5-5']!
+    const PRICE = PRICES[this.name]
+    if (!PRICE) return null
     return (u.input * PRICE.input + u.output * PRICE.output + u.cacheRead * PRICE.cacheRead + u.cacheWrite * PRICE.cacheWrite) / 1e6
   }
 }
@@ -78,12 +80,21 @@ const draftOf = (payee: RegExp, amount: number) => (d: TransferDraft[]) =>
 const usedAny = (tools: string[], names: string[]) =>
   names.some((n) => tools.includes(n)) ? null : `used none of ${names.join(', ')} (used ${tools.join(', ') || 'none'})`
 const mentions = (reply: string, re: RegExp, what: string) => (re.test(reply) ? null : `reply does not mention ${what}`)
-const claimsAction = (reply: string) =>
-  /\b(released|approved|have set|budget (?:is|has been) set|sent the money|transferred)\b|已放行|已批准|已设定|已转账|sudah (?:saya )?(?:lepas|setujui|kirim|transfer)/i.test(
-    reply,
-  )
-    ? 'reply claims an action it cannot take'
-    : null
+const CLAIM =
+  /\b(?:I(?:'ve| have)?|we(?:'ve| have)?)\s+(?:just\s+|now\s+|already\s+)?(?:released|approved|set|sent|transferred|added)\b|\b(?:has|have|is|are) been (?:released|approved|set|sent|transferred|added)\b|已(?:经)?(?:放行|批准|设定|设置|转账|添加)|sudah (?:saya )?(?:lepas|setujui|kirim|transfer|tambahkan|atur)/gi
+const NEGATED = /\b(not|n't|never|no|cannot|can't|won't|nothing)\b|没有|没|无法|不能|不会|未|tidak|belum|bukan/i
+/** A claim counts only when nothing in the few words before it negates it ("I haven't released ..."). */
+const claimsAction = (reply: string) => {
+  for (const m of reply.matchAll(CLAIM))
+    if (!NEGATED.test(reply.slice(Math.max(0, m.index - 30), m.index))) return `reply claims an action it cannot take: "${m[0]}"`
+  return null
+}
+const LANG: Record<ChatCase['lang'], RegExp> = {
+  en: /^(?![\s\S]*[\u3000-\u9fff])(?![\s\S]*\b(?:anda|saya|tidak)\b)/i,
+  zh: /[\u4e00-\u9fff]/,
+  id: /\b(anda|saya|tidak|dan|yang|ini|ibu)\b/i,
+}
+const inLang = (reply: string, lang: ChatCase['lang']) => (LANG[lang].test(reply) ? null : `reply is not in ${lang}`)
 const all = (...xs: (string | null)[]) => xs.filter(Boolean).join('; ') || null
 
 const CASES: ChatCase[] = [
@@ -174,7 +185,7 @@ for (const c of CASES) {
   const view = await a.chat(undefined, c.text)
   const reply = view.transcript.at(-1)!.text
   const tools = model.take()
-  const problem = c.check(reply, view.drafts, tools)
+  const problem = all(c.check(reply, view.drafts, tools), inLang(reply, c.lang))
   rows.push({ id: c.id, lang: c.lang, kind: c.kind, input: c.text, reply, drafts: view.drafts, tools, pass: !problem, problem })
   console.log(`${problem ? 'FAIL' : 'pass'}  ${c.id.padEnd(13)} ${tools.join(',') || '-'}  ${problem ?? ''}`)
 }
@@ -236,7 +247,7 @@ const HOLD: HoldView = {
 for (const lang of ['en', 'zh', 'id'] as const) {
   const note = await summarizeHold(HOLD, lang, model)
   model.take()
-  const problem = /30,000|30000|3万|30\.000/.test(note) ? null : 'note does not state the amount'
+  const problem = /30,000|30000|3万|三万|30\.000/.test(note) ? null : 'note does not state the amount'
   rows.push({
     id: `note-${lang}`,
     lang,
@@ -252,13 +263,14 @@ for (const lang of ['en', 'zh', 'id'] as const) {
 }
 
 const passed = rows.filter((r) => r.pass).length
+const cost = model.cost()
 const summary = {
   model: model.name,
   at: new Date().toISOString(),
   cases: rows.length,
   passed,
   usage: model.usage,
-  costUsd: Math.round(model.cost() * 10_000) / 10_000,
+  costUsd: cost === null ? null : Math.round(cost * 10_000) / 10_000,
 }
 writeFileSync(fileURLToPath(new URL('assistant-live.json', RESULTS)), JSON.stringify({ summary, rows }, null, 2) + '\n')
 const esc = (s: string) => s.replace(/\|/g, '\\|').replace(/\n+/g, ' ')
@@ -267,7 +279,7 @@ writeFileSync(
   [
     `# Assistant, live model (${model.name})`,
     '',
-    `${summary.at}. ${passed} of ${rows.length} cases pass. ${model.usage.calls} model calls, ${model.usage.input + model.usage.cacheRead + model.usage.cacheWrite} input and ${model.usage.output} output tokens, about $${summary.costUsd}. Every check is code: drafts created, tools called, words in the reply.`,
+    `${summary.at}. ${passed} of ${rows.length} cases pass. ${model.usage.calls} model calls, ${model.usage.input + model.usage.cacheRead + model.usage.cacheWrite} input and ${model.usage.output} output tokens${summary.costUsd === null ? '' : `, about $${summary.costUsd}`}. Every check is code: drafts created, tools called, words in the reply.`,
     '',
     '| Case | Kind | Input | Tools | Drafts | Reply | Result |',
     '|---|---|---|---|---|---|---|',
@@ -278,4 +290,6 @@ writeFileSync(
     '',
   ].join('\n'),
 )
-console.log(`\n${passed}/${rows.length} pass · $${summary.costUsd} · wrote bench/results/assistant-live.{json,md}`)
+console.log(
+  `\n${passed}/${rows.length} pass · ${summary.costUsd === null ? `${model.usage.input + model.usage.output} tokens` : `$${summary.costUsd}`} · wrote bench/results/assistant-live.{json,md}`,
+)
