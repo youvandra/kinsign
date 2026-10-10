@@ -15,20 +15,8 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 
-/** Who the entry is made for, shown ahead of the stack in the strip under the hero. */
+/** Who the entry is made for, shown in the strip under the hero. */
 export const BUILT_FOR = ['Shenzhen FinTechathon 2026', 'WeBank 微众银行', 'International Track · AI', 'Topic A · Personal Finance Assistant']
-
-export const TECH = [
-  'FISCO BCOS',
-  'FATE federated learning',
-  'Solidity',
-  'TypeScript SDK',
-  'Private set intersection',
-  'SecureBoost',
-  'viem',
-  'Foundry',
-  'React',
-]
 
 export const SHIFT_STATEMENT =
   'Modern scams no longer break into accounts. They call the real owner and talk them into paying. Every check passes, because the person pressing confirm is the customer.'
