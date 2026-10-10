@@ -16,9 +16,10 @@
 
 | | |
 |---|---|
-| **Both phones side by side** | `/stage` on the local demo ([Quick start](#quick-start)) |
-| **Documentation** | `/docs` on the demo, or [`docs/`](docs) on GitHub |
-| **Measured results** | `/benchmarks` on the demo, or [`bench/results/`](bench/results) |
+| **Live demo** | [kinsign.web.id](https://kinsign.web.id) · offline assistant, local chain, reset nightly |
+| **Both phones side by side** | [kinsign.web.id/stage](https://kinsign.web.id/stage), or `/stage` on a local run ([Quick start](#quick-start)) |
+| **Documentation** | [kinsign.web.id/docs](https://kinsign.web.id/docs), or [`docs/`](docs) on GitHub |
+| **Measured results** | [kinsign.web.id/benchmarks](https://kinsign.web.id/benchmarks), or [`bench/results/`](bench/results) |
 | **One session on FISCO BCOS, every step logged** | [`bench/results/sandbox-fisco.md`](bench/results/sandbox-fisco.md) |
 | **The assistant against a live model, 19 of 19** | [`bench/results/assistant-live.md`](bench/results/assistant-live.md) |
 | **Permission tiers and every known risk** | [`docs/security.md`](docs/security.md) |
@@ -264,6 +265,8 @@ Every published number has a file in [`bench/results/`](bench/results), and the 
 ---
 
 ## Quick start
+
+A hosted copy runs at [kinsign.web.id](https://kinsign.web.id). To run it yourself:
 
 Requirements: Node.js 22+ and [Foundry](https://getfoundry.sh); `scripts/setup.sh` installs Foundry when it is missing.
 
